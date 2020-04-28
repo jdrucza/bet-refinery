@@ -2,19 +2,19 @@
   "connectlinks": [
     {
       "name": "Twitter",
-      "url": "https://twitter.com/jasperketone"
+      "url": "https://twitter.com/betrefinery"
     },
     {
       "name": "LinkedIn",
-      "url": "https://www.linkedin.com/in/jake-peterson-101/"
+      "url": "https://www.linkedin.com/in/do-we-want-this/"
     },
     {
-      "name": "Github",
-      "url": "https://github.com/jake-101"
+      "name": "Email",
+      "url": "mailto://hello@betrefinery.com"
     },
     {
-      "name": "Unsplash",
-      "url": "https://unsplash.com/@jake101"
+      "name": "Facebook",
+      "url": "https://facebook.com/betrefinery"
     }
   ]
 }

@@ -1,15 +1,15 @@
 {
-  "sitename": "Bael",
-  "sitedescription": "A fashionable brutalist blog template using Netlify CMS and Nuxt.js.",
+  "sitename": "BetRefinery",
+  "sitedescription": "The premier source of odds and prediction data.",
   "siteicon": "/images/uploads/icon.png",
   "showmenu": true,
   "emailsignup": true,
   "altlayout": false,
   "menu": [
     {
-      "name": "jake101",
+      "name": "Whatever we want",
       "position": "1",
-      "link": "https://www.jake101.com/"
+      "link": "https://something.cool.com/"
     },
     {
       "name": "Nuxt.js",

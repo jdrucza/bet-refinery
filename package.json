@@ -1,8 +1,8 @@
 {
-  "name": "bael-cms-template",
-  "version": "0.1.2",
-  "description": "A fashionable brutalist blog template using Netlify CMS and Nuxt.js",
-  "author": "jake101 <hello@jake101.com>",
+  "name": "bet-refinery",
+  "version": "0.0.1",
+  "description": "The premier source of odds and prediction data.",
+  "author": "Bet Refinery Pty Ltd <hello@betrefinery.com>",
   "scripts": {
     "dev": "nuxt",
     "serve": "nuxt",
