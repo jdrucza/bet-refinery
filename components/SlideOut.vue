@@ -33,7 +33,7 @@
   </div>
 </template>
 
-  <script>
+<script>
 export default {
   data() {
     return {
@@ -210,10 +210,6 @@ export default {
   cursor: pointer;
   text-transform: uppercase;
 
-  &:hover {
-    text-decoration: underline;
-  }
-
   & + & {
     margin-top: 20px;
   }
@@ -229,6 +225,15 @@ export default {
   font-weight: normal;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  a {
+    color: black;
+    text-decoration-line: underline;
+    text-decoration-color: deeppink;
+
+    &:hover {
+      color: deeppink;
+    }
+  }
 }
 
 /* The famed Zap agency logo (TM) */

@@ -40,7 +40,7 @@
                 <div class="footer__heading xs-mb2">Newsletter Signup</div>
                 <form @submit.prevent="processForm" action="/.netlify/functions/app" name="mailinglist">
                     <input type="email" v-model="emaildata.email" class="text-input text-input--small xs-mb1 xs-mr2" placeholder="you@email.com">
-                    <button type="submit" class="button button--transparent button--small">Submit</button>
+                    <button type="submit" class="subscribe-button button--small">Submit</button>
                 </form>
             </div>
             <div class="item" v-else>
@@ -159,7 +159,11 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.subscribe-button {
+    color: white;
+    background-color: deeppink;
+}
 .text-input {
     max-width: 100%;
 }
@@ -167,4 +171,14 @@ export default {
 .footer__heading {
     max-width: 100%;
 }
+a {
+    color: black;
+    text-decoration-line: underline;
+    text-decoration-color: deeppink;
+
+    &:hover {
+        color: deeppink;
+    }
+}
+
 </style>

@@ -19,6 +19,8 @@ collections:
       - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}
       - {label: "Category", name: "category", widget: "relation", collection: "blogcategories", searchFields: ["title"], valueField: "title", displayFields: ["title"], required: false}
       - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Focus Keyword", name: "yoast_keyword", widget: "string"}
+      - {label: "Meta Description", name: "description", widget: "string"}
   - name: "page" # Used in routes, e.g., /admin/collections/blog
     label: "Pages" # Used in the UI
     folder: "content/page/posts" # The path to the folder where the documents are stored
@@ -30,6 +32,8 @@ collections:
       - {label: "Publish Date", name: "date", widget: "datetime"}
       - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}
       - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Focus Keyword", name: "yoast_keyword", widget: "string"}
+      - {label: "Meta Description", name: "description", widget: "string"}
   - label: "Setup"
     name: "setup"
     files:

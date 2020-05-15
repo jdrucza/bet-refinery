@@ -159,5 +159,20 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+  a {
+    font-size: 20px;
+    font-family: "Archivo Black", sans-serif;
+    color: black;
+    /* text-decoration-style: solid;
+    text-decoration-line: underline;
+    text-decoration-color: blueviolet;
+    text-decoration-thickness: 10px; */
+    border-bottom-color: deeppink;
+    border-bottom-style: solid;
+    border-bottom-width: 5px;
+  }
+  a:hover {
+    color: deeppink;
+  }
 </style>
