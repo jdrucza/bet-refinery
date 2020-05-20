@@ -17,7 +17,9 @@
         <script>
 
             CMS.registerPreviewStyle('https://unpkg.com/netlify-cms-yoast-seo@~1.0/dist/main.css');
-            CMS.registerPreviewStyle('/_nuxt/app.css');
+            // CMS.registerPreviewStyle('/_nuxt/app.css');
+            previewImgStyle  = "img {  max-width: 100%;  height: auto; width: 100%; }"
+            CMS.registerPreviewStyle(previewImgStyle, { raw: true });
             blogPagePreviewWidget = createClass({
                 render: function () {
                     const entry = this.props.entry
