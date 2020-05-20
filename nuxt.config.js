@@ -43,7 +43,7 @@ env: {
   /*
   ** Customize the progress bar color
   */
-  loading: { color: '#3B8070' },
+  loading: { color: '#deeppink' },
   modules: ['@nuxtjs/markdownit', '@nuxtjs/pwa','@nuxtjs/axios'],
   markdownit: {
     injected: true,

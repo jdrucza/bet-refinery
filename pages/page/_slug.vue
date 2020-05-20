@@ -25,6 +25,8 @@ export default {
     let post = await import("~/content/page/posts/" + params.slug + ".json");
     console.log(post);
     await store.commit("SET_TITLE", post.title);
+    await store.commit("SET_DESCRIPTION", post.description);
+    await store.commit("SET_SEO_TITLE", post.seoTitle);
     
     return post;
   },
@@ -33,7 +35,10 @@ export default {
   },
   head() {
     return {
-      title: this.title + " | " + this.$store.state.siteInfo.sitename
+      title: this.seoTitle,
+      meta: [
+        { hid: 'description', name: 'description', content: this.description }
+      ]
     };
   },
   data() {

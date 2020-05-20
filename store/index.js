@@ -24,7 +24,9 @@ const createStore = () =>
       allCats: [],
       results: [],
       resultsnum: [],
-      pagination: false
+      pagination: false,
+      description: '',
+      seoTitle: ''
     },
     actions: {
       async nuxtServerInit({ dispatch }) {
@@ -150,6 +152,12 @@ const createStore = () =>
       },
       SET_TITLE(state, data) {
         state.blogTitle = data
+      },
+      SET_DESCRIPTION(state, data) {
+        state.description = data
+      },
+      SET_SEO_TITLE(state, data) {
+        state.seoTitle = data
       },
       SET_NAVHEIGHT(state, data) {
         state.navheight = data

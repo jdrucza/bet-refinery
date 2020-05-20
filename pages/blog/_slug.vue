@@ -33,22 +33,26 @@ import MdWrapper from "~/components/MdWrapper";
 export default {
   async asyncData({ params, app, payload, route, store }) {
     let post = await import("~/content/blog/posts/" + params.slug + ".json");
-    console.log(post);
    
-   await store.commit("SET_TITLE", post.title);
-     await store.commit("SET_THUMB", post.thumbnail);
-     await store.commit("SET_CRUMB", 'Blog');
-   await   store.commit("SET_POSTCAT", post.category);
+    await store.commit("SET_TITLE", post.title);
+    await store.commit("SET_DESCRIPTION", post.description);
+    await store.commit("SET_SEO_TITLE", post.seoTitle);
+    await store.commit("SET_THUMB", post.thumbnail);
+    await store.commit("SET_CRUMB", 'Blog');
+    await store.commit("SET_POSTCAT", post.category);
     await store.commit("paginateOff", false);
     return post;
   },
-   transition (to, from) {
+  transition (to, from) {
     if (!from) { return 'slide-left' } else {return 'slide-right'}
   },
   head() {
     return {
-      title: this.title + " | " + this.$store.state.siteInfo.sitename
-    };
+      title: this.seoTitle,
+      meta: [
+        { hid: 'description', name: 'description', content: this.description }
+      ]
+   };
   },
   
   data() {
