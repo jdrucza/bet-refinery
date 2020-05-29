@@ -125,6 +125,12 @@ h6 {
   object-position: 50% 50%;
   width: 100%;
 }
+.featured-image-small {
+  max-height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  width: 100%;
+}
 .container .single .post-content {
   line-height: 1.618;
   color: #222;

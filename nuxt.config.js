@@ -19,10 +19,10 @@ module.exports = {
   /*
   ** Headers of the page
   */
-transition: { mode: "in-out"},
-env: {
-  API_URL: process.env.API_URL,
-},
+  transition: { mode: "in-out" },
+  env: {
+    API_URL: process.env.API_URL,
+  },
   head: {
     title: siteInfo.sitename,
     meta: [
@@ -36,7 +36,7 @@ env: {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Archivo+Black' }
     ]
   },
-  css: ["@/assets/grid.css","bf-solid/dist/solid.latest.css"],
+  css: ["@/assets/grid.css", "bf-solid/dist/solid.latest.css"],
   // icon: {
   //   iconSrc: `${siteInfo.siteicon}`
   //  },
@@ -44,14 +44,14 @@ env: {
   ** Customize the progress bar color
   */
   loading: { color: '#deeppink' },
-  modules: ['@nuxtjs/markdownit', '@nuxtjs/pwa','@nuxtjs/axios'],
+  modules: ['@nuxtjs/markdownit', '@nuxtjs/pwa', '@nuxtjs/axios'],
   markdownit: {
     injected: true,
     preset: 'default',
     breaks: true,
     html: true
 
-    
+
   },
   manifest: {
     name: siteInfo.sitename,
@@ -78,22 +78,22 @@ env: {
   /*
   ** Route config for pre-rendering
   */
- router: {
-  scrollBehavior: function (to, from, savedPosition) {
-    return { x: 0, y: 0 }
+  router: {
+    scrollBehavior: function (to, from, savedPosition) {
+      return { x: 0, y: 0 }
+    },
+    middleware: ['title']
   },
-middleware: ['title']
- },
   generate: {
     routes: dynamicRoutes
   },
-  plugins: ['~/plugins/vuefuse',{
+  plugins: ['~/plugins/vuefuse', {
     src: "~/plugins/moment",
     ssr: false
-  },{
-    src: "~/plugins/lazyload",
-    ssr: false
-  }],
+  }, {
+      src: "~/plugins/lazyload",
+      ssr: false
+    }],
   /*
   ** Build configuration
   */

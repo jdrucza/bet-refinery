@@ -2,11 +2,14 @@
 <div class="xs-text-6 md-text-5">
     <div v-if="items2[0]" class="r full-height browse" :style="`height:calc(100vh - ${navbarheight}px);margin-top:${navbarheight}px`">
 
-      <div v-if="items2[pi]" v-for="(p,pi) in items2" :key="p.pi" class="xs-border xs-p2 bcg-item">
-        <div class="item xs-block xs-full-height xs-flex">
-          <nuxt-link class="xs-text-center xs-flex xs-full-height xs-flex-align-center xs-flex-justify-center xs-text-center" :to="p._path">
-            {{p.title}}
-          </nuxt-link>
+      <div v-if="items2[pi]" v-for="(p,pi) in items2" :key="p.pi" class="xs-border-right xs-border-bottom xs-p2 bcg-item">
+        <div class="item xs-full-height xs-flex xs-flex-column">
+          <div style="height:40%"><img class="featured-image-small" :src="p.thumbnail" :alt="p.title" /></div>
+          <div style="height:60%">
+            <nuxt-link class="xs-text-center xs-flex xs-flex-align-center xs-full-height xs-flex-justify-center xs-flex-grow-1" :to="p._path">
+              <div>{{p.title}}</div>
+            </nuxt-link>
+          </div>
         </div>
       </div>
 

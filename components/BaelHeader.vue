@@ -8,18 +8,18 @@
         </div>
       </div>
 
-      <div class="c-4 xs-border-top xs-border-bottom sm-border-top-none sm-border-bottom-none sm-border-left sm-border-right xs-p2">
+      <div class="c-4 sm-border-top-none xs-border-bottom xs-border-top sm-border-bottom-none sm-border-right xs-p2">
         <div class="item xs-flex">
           <VueFuse placeholder="Search" :compResults="compResults" :keys="keys" :list="allPosts" event-name="searchChanged" />
         </div>
 
       </div>
-      <div v-if="blogtitle" style="z-index:55;" class="c-12 xs-border-top xs-border-bottom xs-p2 xs-text-6 titlebar">
-        <div class="item">
-          <nuxt-link to="/" exact>Home</nuxt-link>
-          <span v-show="crumb"> &nbsp;
-            <span class="text-gray-lightest"> > </span> &nbsp; {{thecrumb}} </span> &nbsp;
-          <span class="text-gray-lightest"> > </span> &nbsp; {{blogtitle}}
+      <div class="c-12 xs-p2 xs-text-6 titlebar sm-border-top xs-border-bottom sm-border-bottom-none">
+        <div class="xs-flex sports-nav xs-flex-justify-space-between">
+          <nuxt-link v-for="sport in allSports" :to="sport._path" :key="sport.name" exact>{{sport.name}}</nuxt-link>
+          <!-- <nuxt-link to="/basketball" exact>Basketball</nuxt-link>
+          <nuxt-link to="/us-election" exact>US election</nuxt-link>
+          <nuxt-link to="/golf" exact>Golf</nuxt-link> -->
         </div>
       </div>
     </div>
@@ -48,6 +48,9 @@ export default {
   },
   components: { VueFuse },
   computed: {
+    allSports() {
+      return this.$store.state.allSports;
+    },
     allPosts() {
       let posts = this.$store.state.blogPosts;
       let pages = this.$store.state.allPages;
@@ -87,6 +90,9 @@ export default {
 .titlebar .item {
   overflow-x: none;
 }
+.titlebar {
+  background-color: black;
+}
 .results {
   padding-left: 0;
   transform: translateY(17px);
@@ -115,4 +121,18 @@ nav {
     width: 94vw;
   }
 }
+.sports-nav > a {
+  color: white;
+  text-decoration-line: underline;
+  text-decoration-color: deeppink;
+  font-family: "Archivo Black", sans-serif;
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.sports-nav > a:hover {
+  color: deeppink;
+}
+
 </style>
