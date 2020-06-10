@@ -1,12 +1,14 @@
 <template>
 <div class="xs-text-6 md-text-5">
-    <div v-if="items2[0]" class="r full-height browse" :style="`height:calc(100vh - ${navbarheight}px);margin-top:${navbarheight}px`">
+    <div v-if="items2[0]" class="r full-height browse" :style="`margin-top:${navbarheight}px`">
 
-      <div v-if="items2[pi]" v-for="(p,pi) in items2" :key="p.pi" class="xs-border-right xs-border-bottom xs-p2 bcg-item">
+      <div v-if="items2[pi]" v-for="(p,pi) in items2" :key="p.pi" class="xs-border-right xs-border-bottom xs-p2 bcg-item" style="height:300px">
         <div class="item xs-full-height xs-flex xs-flex-column">
-          <div style="height:40%"><img class="featured-image-small" :src="p.thumbnail" :alt="p.title" /></div>
-          <div style="height:60%">
-            <nuxt-link class="xs-text-center xs-flex xs-flex-align-center xs-full-height xs-flex-justify-center xs-flex-grow-1" :to="p._path">
+          <div style="height:65%">
+            <img class="featured-image-small" :src="p.thumbnail" :alt="p.title" />
+          </div>
+          <div style="height:35%">
+            <nuxt-link class="xs-text-center xs-flex xs-flex-align-center xs-full-height xs-flex-justify-center" :to="p._path">
               <div>{{p.title}}</div>
             </nuxt-link>
           </div>
@@ -164,7 +166,7 @@ export default {
 
 <style scoped>
   a {
-    font-size: 20px;
+    font-size: 1rem;
     font-family: "Archivo Black", sans-serif;
     color: black;
     /* text-decoration-style: solid;
