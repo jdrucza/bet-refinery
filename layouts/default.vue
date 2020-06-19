@@ -114,5 +114,4 @@ body {
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
-.post-content {max-width:75ch;}
 </style>

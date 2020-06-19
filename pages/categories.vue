@@ -2,33 +2,30 @@
   <BaelGrid :allitems="allCategories"></BaelGrid>
 </template>
 
-<script>
-import BaelGrid from "~/components/BaelGrid";
+<script lang="coffee">
+import BaelGrid from "~/components/BaelGrid"
 export default {
-  watchQuery: ["page"],
+  watchQuery: ["page"]
 
-  async asyncData({ params, app, payload, route, store }) {
-    await store.commit("SET_TITLE", "Categories");
-  },
-  transition(to, from) {
-    if (!from) return "fade";
-    return +to.query.page > +from.query.page ? "slide-right" : "slide-left";
-  },
-  components: { BaelGrid },
-  data() {
-    return {};
-  },
-  head() {
-    return {
-      title: "Categories | " + this.$store.state.siteInfo.sitename
-    };
-  },
-  computed: {
-    allCategories() {
-      return this.$store.state.allCats;
-    }
-  }
-};
+  asyncData: ({ params, app, payload, route, store }) -> 
+    await store.commit("SET_TITLE", "Categories")
+
+  transition: (finish, start) ->
+    return "fade" unless start? 
+    return  if +finish.query.page > +start.query.page then "slide-right" else "slide-left"
+
+  components: { BaelGrid }
+
+  data: ()->
+    {}
+
+  head: ->
+    { title: "Categories | " + this.$store.state.siteInfo.sitename }
+
+  computed:
+    allCategories: ()->
+      this.$store.state.allCats
+}
 </script>
 
 <style>

@@ -44,7 +44,7 @@ module.exports = {
   ** Customize the progress bar color
   */
   loading: { color: '#deeppink' },
-  modules: ['@nuxtjs/markdownit', '@nuxtjs/pwa', '@nuxtjs/axios'],
+  modules: ['@nuxtjs/markdownit', '@nuxtjs/pwa', '@nuxtjs/axios', '@modules/coffeescript'],
   markdownit: {
     injected: true,
     preset: 'default',

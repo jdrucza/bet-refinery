@@ -19,11 +19,15 @@
     "@nuxtjs/pwa": "^2.0.8",
     "@sendgrid/client": "^6.3.0",
     "bf-solid": "^2.10.6",
+    "chart.js": "^2.9.3",
+    "coffee-loader": "^1.0.0",
+    "coffeescript": "^2.5.1",
     "fuse.js": "^3.2.1",
     "hoek": "^4.2.1",
+    "neat-csv": "^5.2.0",
     "netlify-lambda": "^1.4.3",
     "node-sass": "^4.9.2",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.5.0",
     "sass-loader": "^7.0.3",
     "vue-lazyload": "^1.2.6",
     "vue-moment": "^4.0.0"
@@ -34,7 +38,9 @@
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^1.7.1",
     "eslint-plugin-vue": "^4.7.0",
-    "glob": "^7.1.2"
+    "glob": "^7.1.2",
+    "pug": "^3.0.0",
+    "pug-plain-loader": "^1.0.0"
   },
   "engines": {
     "node": "^9.0.0"
