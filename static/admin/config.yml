@@ -19,6 +19,7 @@ collections:
       - {label: "Publish Date", name: "date", widget: "datetime", format: "dddd MMMM Do, YYYY"}
       - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}
       - {label: "Category", name: "category", widget: "relation", collection: "blogcategories", searchFields: ["title"], valueField: "title", displayFields: ["title"], required: false}
+      - {label: "Sport", name: "sport", widget: "relation", collection: "sports", searchFields: ["label"], valueField: "label", displayFields: ["label"], required: false}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Focus Keyword", name: "yoast_keyword", widget: "string"}
       - {label: "Meta Description", name: "description", widget: "string"}

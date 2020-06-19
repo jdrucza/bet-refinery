@@ -89,12 +89,6 @@ export default {
       data
 
     config: (rawData)->
-      candidateData = {}
-      for record in rawData
-        candidateData[record.Name] = [] unless candidateData[record.Name]?
-        datetime = moment(record.datetime, "DD/MM/YYYY hh:mm")
-        candidateData[record.Name].push {t:datetime.valueOf(), y:record["Win %"]*100.0}
-
       color = Chart.helpers.color
       colors = [
         'rgb(255,20,147)'
@@ -128,12 +122,13 @@ export default {
       #     borderWidth: 2
       #   })
 
-      for cName, cData of candidateData
+      # for cName, cData of candidateData
+      for record in rawData
         datasets.push({
-          label: cName
+          label: record.name
           backgroundColor: backgroundColor
           borderColor: borderColor
-          data: cData
+          data: record.data
           type: 'line'
           pointRadius: 0
           fill: false
@@ -218,12 +213,10 @@ export default {
       graphEl = document.getElementById('graph')
       console.log(graphEl)
       if (graphEl != null and not @.chart?)
-        csv = await @.$axios.get('/data/Election_odds_record.csv')
-        parsedData = await neatCsv(csv.data)
+        jsonResponse = await @.$axios.get('/data/Election_odds_json.json')
         # graphEl.style.backgroundColor = 'rgb(0,0,0)'
         context = graphEl.getContext('2d')
-        console.log(context)
-        @.chart = new Chart(context, @.config(parsedData))
+        @.chart = new Chart(context, @.config(jsonResponse.data))
 
   updated: ()->
     if process.browser
