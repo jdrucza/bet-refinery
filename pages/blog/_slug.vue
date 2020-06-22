@@ -64,31 +64,7 @@ export default {
     {}
 
   methods:
-    generateData: ()->
-      randomNumber = (min, max)->
-        return Math.random() * (max - min) + min
-
-      randomBar = (date, lastClose)->
-        open = randomNumber(lastClose * 0.95, lastClose * 1.05).toFixed(2)
-        close = randomNumber(open * 0.95, open * 1.05).toFixed(2)
-        return {
-          t: date.valueOf()
-          y: close
-        }
-
-      unit = 'day'
-
-      date = moment('Jan 01 1990', 'MMM DD YYYY')
-      now = moment()
-      data = []
-      for day in [1..600]
-        date = date.clone().add(day, unit).startOf(unit)
-        lastClose = if data.length > 0 then data[data.length - 1].y else 30
-        data.push(randomBar(date, lastClose))
-
-      data
-
-    config: (rawData)->
+    config: (rawData, mobileView, candidateNames, startDateTime=0, endDateTime=Infinity)->
       color = Chart.helpers.color
       colors = [
         'rgb(255,20,147)'
@@ -108,27 +84,12 @@ export default {
       borderColor = (context)-> colors[context.datasetIndex]
       datasets = []
 
-      # candidates = ['Trump','Biden','Muppet','Scumbag','Loser','Smith','Jones','Bad','Fugly']
-      # for candidate in candidates
-      #   datasets.push({
-      #     label: candidate
-      #     backgroundColor: backgroundColor
-      #     borderColor: borderColor
-      #     data: @.generateData()
-      #     type: 'line'
-      #     pointRadius: 0
-      #     fill: false
-      #     lineTension: 0
-      #     borderWidth: 2
-      #   })
-
-      # for cName, cData of candidateData
-      for record in rawData
+      for record in rawData when (not candidateNames? or record.name in candidateNames)
         datasets.push({
           label: record.name
           backgroundColor: backgroundColor
           borderColor: borderColor
-          data: record.data
+          data: datum for datum in record.data when (datum.t >= startDateTime and datum.t <= endDateTime)
           type: 'line'
           pointRadius: 0
           fill: false
@@ -156,29 +117,6 @@ export default {
                 autoSkipPadding: 75,
                 maxRotation: 0,
                 sampleSize: 100
-              # afterBuildTicks: (scale, ticks)->
-              #   console.log "scale, ticks", scale, ticks
-              #   majorUnit = scale._majorUnit
-              #   firstTick = ticks[0]
-
-              #   val = moment(ticks[0].value)
-              #   if ((majorUnit == 'minute' and val.second() == 0) or 
-              #       (majorUnit == 'hour' and val.minute() == 0) or
-              #       (majorUnit == 'day' and val.hour() == 9) or
-              #       (majorUnit == 'month' and val.date() <= 3 and val.isoWeekday() == 1) or
-              #       (majorUnit == 'year' and val.month() == 0))
-              #     firstTick.major = true
-              #   else
-              #     firstTick.major = false
-              #   lastMajor = val.get(majorUnit)
-
-              #   for i in [1..ticks.length]
-              #     tick = ticks[i-1]
-              #     val = moment(tick.value)
-              #     currMajor = val.get(majorUnit)
-              #     tick.major = currMajor != lastMajor
-              #     lastMajor = currMajor
-              #   ticks
             }]
             yAxes: [{
               gridLines:
@@ -187,6 +125,10 @@ export default {
                 display: true,
                 labelString: 'Win chance %'
             }]
+          legend:
+            labels:
+              boxWidth: if mobileView then 10 else 40
+              fontSize: if mobileView then 8 else 12
           tooltips:
             intersect: false,
             mode: 'index',
@@ -209,14 +151,21 @@ export default {
       @.$store.commit("SET_NAVHEIGHT", height)
 
     drawGraph: ()->
-      console.log("getting graph eelemeent")
-      graphEl = document.getElementById('graph')
-      console.log(graphEl)
-      if (graphEl != null and not @.chart?)
-        jsonResponse = await @.$axios.get('/data/Election_odds_json.json')
-        # graphEl.style.backgroundColor = 'rgb(0,0,0)'
-        context = graphEl.getContext('2d')
-        @.chart = new Chart(context, @.config(jsonResponse.data))
+      @.charts = @.charts or []
+      jsonResponse = await @.$axios.get('/data/Election_odds_json.json')
+      data = jsonResponse.data
+      mobileView = window?.innerWidth < 700
+      console.log("getting graph eelemeentS")
+      for graphEl in document.getElementsByName('brgraph')
+        if (graphEl != null and not @.charts[graphEl.id]?)
+          onlyNames = graphEl.getAttribute('data-only-names')?.split(',')
+          dataStart = graphEl.getAttribute('data-start')
+          startDateTime = if dataStart? then moment(dataStart,"YYYY-MM-DD hh:mm").valueOf() else 0
+          dataEnd = graphEl.getAttribute('data-end')
+          endDateTime = moment(dataEnd,"YYYY-MM-DD hh:mm").valueOf() if dataEnd
+          # graphEl.style.backgroundColor = 'rgb(0,0,0)'
+          context = graphEl.getContext('2d')
+          @.charts[graphEl.id] = new Chart(context, @.config(data, mobileView, onlyNames, startDateTime, endDateTime))
 
   updated: ()->
     if process.browser
