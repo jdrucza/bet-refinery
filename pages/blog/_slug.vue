@@ -79,6 +79,9 @@ export default {
         'rgb(83,83,255)'
         'rgb(83,255,83)'
         'rgb(255,83,83)'
+        'rgb(20,201,201)'
+        'rgb(201,20,201)'
+        'rgb(201,201,20)'
       ]
       backgroundColor = (context)-> color(colors[context.datasetIndex]).alpha(0.5).rgbString()
       borderColor = (context)-> colors[context.datasetIndex]
@@ -117,6 +120,7 @@ export default {
                 autoSkipPadding: 75,
                 maxRotation: 0,
                 sampleSize: 100
+                fontSize: if mobileView then 10 else 12
             }]
             yAxes: [{
               gridLines:
@@ -137,7 +141,7 @@ export default {
                 label = myData.datasets[tooltipItem.datasetIndex].label || ''
                 if label
                   label += ': '
-                label += parseFloat(tooltipItem.value).toFixed(2)
+                label += parseFloat(tooltipItem.value).toFixed(2) + "%"
                 label
       }
 

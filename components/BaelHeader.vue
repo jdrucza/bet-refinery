@@ -17,6 +17,7 @@
       <div class="c-12 xs-p2 xs-text-6 titlebar sm-border-top xs-border-bottom sm-border-bottom-none">
         <div class="xs-flex sports-nav xs-flex-justify-space-between">
           <nuxt-link v-for="sport in allSports" :to="sport._path" :key="sport.name" exact>{{sport.name}}</nuxt-link>
+          <nuxt-link v-for="post in headlinePosts" :to="post._path" :key="post.title" exact>{{post.headlineTitle}}</nuxt-link>
           <!-- <nuxt-link to="/basketball" exact>Basketball</nuxt-link>
           <nuxt-link to="/us-election" exact>US election</nuxt-link>
           <nuxt-link to="/golf" exact>Golf</nuxt-link> -->
@@ -25,65 +26,52 @@
     </div>
   </nav>
 </template>
-<script>
-import VueFuse from "~/components/VueFuse";
+<script lang="coffee">
+import VueFuse from "~/components/VueFuse"
 export default {
-  props: ["blogtitle", "posts", "thecrumb"],
-  data() {
-    return {
-      results: [],
+  props: ["blogtitle", "posts", "thecrumb"]
+  data: ()->
+    {
+      results: []
       keys: [
         {
-          name: "title",
+          name: "title"
           weight: 0.3
         },
         {
-          name: "body",
+          name: "body"
           weight: 0.7
         }
       ],
-
       compResults: []
-    };
-  },
-  components: { VueFuse },
-  computed: {
-    allSports() {
-      return this.$store.state.allSports;
-    },
-    allPosts() {
-      let posts = this.$store.state.blogPosts;
-      let pages = this.$store.state.allPages;
-      let both = posts.concat(pages);
-      return both;
-    },
-    headerSiteName() {
-      return this.$store.state.siteInfo.sitename;
-    },
-    componentResults() {
-      return this.$store.state.results;
-    },
-     crumb() {
-      return this.$store.state.theCrumb;
     }
-  },
+  components: { VueFuse }
+  computed:
+    allSports: ()->
+      @.$store.state.allSports
+    headlinePosts: ()->
+      post for post in @.$store.state.blogPosts when post.headline
+    allPosts: ()->
+      posts = this.$store.state.blogPosts
+      pages = this.$store.state.allPages
+      both = posts.concat(pages)
+      both
+    headerSiteName: ()->
+      @.$store.state.siteInfo.sitename
+    componentResults: ()->
+      this.$store.state.results
+     crumb: ()->
+      this.$store.state.theCrumb
 
-  methods: {
-
-    navHeight() {
-      var height = document.getElementById("navbar").clientHeight;
+  methods:
+    navHeight: ()->
+      height = document.getElementById("navbar").clientHeight;
       console.log(height);
       this.$store.commit("SET_NAVHEIGHT", height - 1);
- 
-    }
-  },
 
-  mounted() {
-    this.$on("searchChanged", results => {
-      this.compResults = results;
-    });
-  }
-};
+  mounted: ()->
+    @.$on("searchChanged", (results) =>  @.compResults = results)
+}
 </script>
 <style>
 #navbar {z-index:999;}
