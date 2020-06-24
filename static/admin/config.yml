@@ -17,7 +17,7 @@ collections:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "SEO Title", name: "seoTitle", widget: "string"}
       - {label: "SEO Name", name: "seoName", widget: "string"}
-      - {label: "SEO Folder", name: "seoFolder", widget: "string"}
+      - {label: "SEO Folder", name: "seoFolder", widget: "string", required: false}
       - {label: "Headline Title", name: "headlineTitle", widget: "string", required: false}
       - {label: "Publish Date", name: "date", widget: "datetime", format: "dddd MMMM Do, YYYY"}
       - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}
@@ -26,7 +26,7 @@ collections:
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Focus Keyword", name: "yoast_keyword", widget: "string"}
       - {label: "Meta Description", name: "description", widget: "string"}
-      - {label: "Headline", name: headline, widget: boolean}
+      - {label: "Headline", name: headline, widget: boolean, required: false}
   - name: "page" # Used in routes, e.g., /admin/collections/blog
     label: "Pages" # Used in the UI
     folder: "content/page/posts" # The path to the folder where the documents are stored
@@ -37,7 +37,7 @@ collections:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "SEO Title", name: "seoTitle", widget: "string"}
       - {label: "SEO Name", name: "seoName", widget: "string"}
-      - {label: "SEO Folder", name: "seoFolder", widget: "string"}
+      - {label: "SEO Folder", name: "seoFolder", widget: "string", required: false}
       - {label: "Publish Date", name: "date", widget: "datetime"}
       - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}
       - {label: "Body", name: "body", widget: "markdown"}
