@@ -10,17 +10,19 @@ collections:
     label: "Blog" # Used in the UI
     folder: "content/blog/posts" # The path to the folder where the documents are stored
     create: true # Allow users to create new documents in this collection
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    slug: "{{seoName}}" # Filename template, e.g., YYYY-MM-DD-title.md
     format: 'json'
     sort: "date:desc" # Default is title:asc
     fields: # The fields for each document, usually in front matter
       - {label: "Title", name: "title", widget: "string"}
       - {label: "SEO Title", name: "seoTitle", widget: "string"}
+      - {label: "SEO Name", name: "seoName", widget: "string"}
+      - {label: "SEO Folder", name: "seoFolder", widget: "string"}
       - {label: "Headline Title", name: "headlineTitle", widget: "string", required: false}
       - {label: "Publish Date", name: "date", widget: "datetime", format: "dddd MMMM Do, YYYY"}
       - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}
       - {label: "Category", name: "category", widget: "relation", collection: "blogcategories", searchFields: ["title"], valueField: "title", displayFields: ["title"], required: false}
-      - {label: "Sport", name: "sport", widget: "relation", collection: "sports", searchFields: ["label"], valueField: "label", displayFields: ["label"], required: false}
+      - {label: "Sport", name: "sport", widget: "relation", collection: "sports", searchFields: ["name"], valueField: "name", displayFields: ["name"], required: false}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Focus Keyword", name: "yoast_keyword", widget: "string"}
       - {label: "Meta Description", name: "description", widget: "string"}
@@ -29,11 +31,13 @@ collections:
     label: "Pages" # Used in the UI
     folder: "content/page/posts" # The path to the folder where the documents are stored
     create: true # Allow users to create new documents in this collection
-    slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    slug: "{{seoName}}" # Filename template, e.g., YYYY-MM-DD-title.md
     format: 'json'
     fields: # The fields for each document, usually in front matter
       - {label: "Title", name: "title", widget: "string"}
       - {label: "SEO Title", name: "seoTitle", widget: "string"}
+      - {label: "SEO Name", name: "seoName", widget: "string"}
+      - {label: "SEO Folder", name: "seoFolder", widget: "string"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
       - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}
       - {label: "Body", name: "body", widget: "markdown"}

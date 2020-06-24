@@ -10,6 +10,7 @@ var dynamicRoutes = getDynamicPaths({
   '/blog': 'blog/posts/*.json',
   '/page': 'page/posts/*.json',
   '/category': 'categories/posts/*.json',
+  '/sports': 'sports/*.json',
   '/tagged': 'tags/posts/*.json'
 });
 
