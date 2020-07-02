@@ -16,8 +16,8 @@
       </div>
       <div class="c-12 xs-p2 xs-text-6 titlebar sm-border-top xs-border-bottom sm-border-bottom-none">
         <div class="xs-flex sports-nav xs-flex-justify-space-between">
-          <nuxt-link v-for="sport in allSports" :to="sport._path" :key="sport.name" exact>{{sport.name}}</nuxt-link>
-          <nuxt-link v-for="post in headlinePosts" :to="post._path" :key="post.title" exact>{{post.headlineTitle || post.title}}</nuxt-link>
+          <nuxt-link v-for="sport in allSports" :to="`${sportPath(sport)}`" :key="sport.name" exact>{{sport.name}}</nuxt-link>
+          <nuxt-link v-for="post in headlinePosts" :to="`${postPath(post)}`" :key="post.title" exact>{{post.headlineTitle || post.title}}</nuxt-link>
           <!-- <nuxt-link to="/basketball" exact>Basketball</nuxt-link>
           <nuxt-link to="/us-election" exact>US election</nuxt-link>
           <nuxt-link to="/golf" exact>Golf</nuxt-link> -->
@@ -68,6 +68,10 @@ export default {
       height = document.getElementById("navbar").clientHeight;
       console.log(height);
       this.$store.commit("SET_NAVHEIGHT", height - 1);
+    sportPath: (sport)->
+      sport._path.replace("/sports",'')
+    postPath: (post)->
+      post._path.replace("/blog",'')
 
   mounted: ()->
     @.$on("searchChanged", (results) =>  @.compResults = results)

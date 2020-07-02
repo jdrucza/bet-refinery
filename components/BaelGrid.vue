@@ -8,7 +8,7 @@
             <img class="featured-image-small" :src="p.thumbnail" :alt="p.title" />
           </div>
           <div style="height:35%">
-            <nuxt-link class="xs-text-center xs-flex xs-flex-align-center xs-full-height xs-flex-justify-center" :to="p._path">
+            <nuxt-link class="xs-text-center xs-flex xs-flex-align-center xs-full-height xs-flex-justify-center" :to="`${path(p)}`">
               <div>{{p.title}}</div>
             </nuxt-link>
           </div>
@@ -82,6 +82,11 @@ export default {
 
         this.$store.commit("SET_NAVHEIGHT", height - 1);
       }
+    },
+
+    path(post) {
+      console.log("PATH:", post._path);
+      return post._path.replace("blog", post.sport + "-betting");
     }
   },
   watch: {

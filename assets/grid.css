@@ -20,7 +20,7 @@
 }
 
  /* 600px */
-@media only screen and (min-width: 40rem) { 
+@media only screen and (min-width: 640px) { 
     
     .c-50 {
         grid-column: span 6;
@@ -90,8 +90,11 @@
 
  /* 600px - 800px */
 
-@media only screen and (max-width: 52rem) and (min-width: 40rem) {
+@media only screen and (max-width: 1200px) and (min-width: 901px) {
     
+    .bcg-item {
+      grid-column: span 3
+    }
 
     .c-50 {
         grid-column: span 6;
@@ -106,6 +109,13 @@
         grid-column: span 12;
     }
     
+}
+
+@media only screen and (min-width: 1201px) {
+    
+  .bcg-item {
+    grid-column: span 2
+  }
 }
 
 pre, code {white-space: normal;font-family: monospace;margin-bottom:1rem;background:#f3f3f3;padding:.5rem;margin: 1rem 0 !important;}
