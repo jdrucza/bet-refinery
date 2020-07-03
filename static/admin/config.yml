@@ -10,8 +10,7 @@ collections:
     label: "Blog" # Used in the UI
     folder: "content/blog/posts" # The path to the folder where the documents are stored
     create: true # Allow users to create new documents in this collection
-    path: "{{sport}}-betting/{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
-    slug: "{{seoName}}"
+    path: "{{sport}}/{{seoName}}" # Filename template, e.g., YYYY-MM-DD-title.md
     format: 'json'
     sort: "date:desc" # Default is title:asc
     fields: # The fields for each document, usually in front matter
