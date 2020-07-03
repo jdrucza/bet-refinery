@@ -10,15 +10,14 @@ collections:
     label: "Blog" # Used in the UI
     folder: "content/blog/posts" # The path to the folder where the documents are stored
     create: true # Allow users to create new documents in this collection
-    path: "{{sport}}/{{fields.seoName}}" # Filename template, e.g., YYYY-MM-DD-title.md
-    # slug: "{{seoName}}"
+    # path: "{{sport}}/{{fields.seoName}}" # This doesn't work even though it should
+    slug: "{{seoName}}"
     format: 'json'
     sort: "date:desc" # Default is title:asc
     fields: # The fields for each document, usually in front matter
       - {label: "Title", name: "title", widget: "string"}
       - {label: "SEO Title", name: "seoTitle", widget: "string"}
       - {label: "SEO Name", name: "seoName", widget: "string"}
-      - {label: "SEO Folder", name: "seoFolder", widget: "string", required: false}
       - {label: "Headline Title", name: "headlineTitle", widget: "string", required: false}
       - {label: "Publish Date", name: "date", widget: "datetime", format: "dddd MMMM Do, YYYY"}
       - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}

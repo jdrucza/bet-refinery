@@ -69,9 +69,10 @@ export default {
       console.log(height);
       this.$store.commit("SET_NAVHEIGHT", height - 1);
     sportPath: (sport)->
-      sport._path.replace("/sports",'')
+      sport._path.replace("/sports",'') + "-betting"
     postPath: (post)->
-      post._path.replace("/blog",'')
+      sportName = "/#{post.sport?.toLowerCase().replace(/ /g, "-")}-betting" or ""
+      post._path.replace("/blog",sportName)
 
   mounted: ()->
     @.$on("searchChanged", (results) =>  @.compResults = results)

@@ -99,7 +99,6 @@ export default {
           lineTension: 0
           borderWidth: 2
         })
-      console.log "datasets", datasets
       {
         data:
           datasets: datasets

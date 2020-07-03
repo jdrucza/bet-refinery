@@ -27,10 +27,10 @@
   </div>
 </template>
 
-<script>
+<script lang="coffee">
 export default {
-  props: ["items", "allitems"],
-  data() {
+  props: ["items", "allitems"]
+  data: ()->
     return {
       currentPage: null,
       pageNumbers: [],
@@ -39,133 +39,96 @@ export default {
       query: 1,
       busy: false,
       count: 0
-    };
-  },
-  methods: {
-    pageCheck() {
-      if (this.allitems.length > 12) {
+    }
+  methods:
+    pageCheck: ()->
+      if (this.allitems.length > 12)
         this.$store.commit("paginateOn", true);
         this.$store.commit("resultsLength", this.allitems.length);
-      } else if (this.allitems.length < 12) {
+      else if (this.allitems.length < 12)
         this.$store.commit("paginateOff", false);
-      } else {
+      else
         this.$store.commit("paginateOff", false);
-      }
-    },
 
-    loadMore() {
+    loadMore: ()->
       this.count = this.offset;
-      if (this.total > this.count && this.busy == false) {
-        this.busy = true;
+      if (this.total > this.count && this.busy == false)
+        this.busy = true
+        this.items2.splice(0)
+        for i in [0..11]
+          api = this.allitems[this.count];
 
-     
-          this.items2.splice(0);
-          for (var i = 0, j = 12; i < j; i++) {
-            let api = this.allitems[this.count];
+          this.items2.push(api);
+          this.count++;
+        this.busy = false;
 
-            this.items2.push(api);
-            this.count++;
-          }
+    onResize: (event)->
+      this.navHeight()
 
-          this.busy = false;
-        
-      }
-    },
+    navHeight: ()->
+      if (process.browser)
+        height = document.getElementById("navbar").clientHeight
+        this.$store.commit("SET_NAVHEIGHT", height - 1)
 
-    onResize(event) {
-      this.navHeight();
-    },
+    path: (post)->
+      console.log("PATH:", post._path)
+      sportName = "/#{post.sport?.toLowerCase().replace(/ /g, "-")}-betting" or ""
+      post._path.replace("/blog", sportName )
 
-    navHeight() {
-      if (process.browser) {
-        var height = document.getElementById("navbar").clientHeight;
-
-        this.$store.commit("SET_NAVHEIGHT", height - 1);
-      }
-    },
-
-    path(post) {
-      console.log("PATH:", post._path);
-      return post._path.replace("blog", post.sport + "-betting");
-    }
-  },
-  watch: {
-    // whenever question changes, this function will run
-    $route({ params, query }) {
-      if (this.$route.query.page > 1) {
+  watch:
+    # whenever question changes, this function will run
+    $route: ({ params, query })->
+      if (this.$route.query.page > 1)
         this.loadMore();
         this.navHeight();
         this.pageCheck();
-      } else if (this.$route.query.page == null) {
+      else if (this.$route.query.page == null)
         this.$route.query.page = 1;
         this.loadMore();
-          this.navHeight();
+        this.navHeight();
         this.pageCheck();
-      } else {
+      else
         this.loadMore();
-          this.navHeight();
+        this.navHeight();
         this.pageCheck();
-      }
-    },
-    queryParam: function() {
+    queryParam: ()->
       this.loadMore();
-    }
-  },
-  computed: {
 
-    offset() {
-      if (this.queryParam > 1) {
-        return Number(this.queryParam - 1) * 12;
-      } else {
-        return 0;
-      }
-    },
-    prevpage() {
-      var prev = Number(this.queryParam) - 1;
-      return prev;
-    },
-    nextpage() {
-      var next = Number(this.queryParam) + 1;
-      return next;
-    },
-    navbarheight() {
-      return this.$store.state.navheight;
-    },
-    total() {
-      return this.allitems.length;
-    },
+  computed:
+    offset:()->
+      if (this.queryParam > 1) then Number(this.queryParam - 1) * 12 else 0
+    prevpage: ()->
+      Number(this.queryParam) - 1;
+    nextpage: ()->
+      Number(this.queryParam) + 1;
+    navbarheight: ()->
+      this.$store.state.navheight;
+    total: ()->
+      this.allitems.length;
 
-    queryParam() {
-      if (this.$route.query.page == null) {
-        return 1;
-      } else {
-        return Number(this.$route.query.page);
-      }
-    }
-  },
+    queryParam: ()->
+      if (this.$route.query.page == null) then 1 else Number(this.$route.query.page);
 
-  updated() {
-    this.$nextTick(() => {
+  updated:()->
+    this.$nextTick(() =>
       this.pageCheck();
       this.navHeight();
       this.$store.commit("SET_GRIDOFFSET", this.offset);
-    });
-  },
-  mounted() {
-    if (process.browser) {
+    )
+  mounted: ()->
+    allitems = this.allitems
+    console.log ({ allitems })
+    if (process.browser)
       this.loadMore();
 
-      this.$nextTick(() => {
+      this.$nextTick(() => 
         this.navHeight();
         this.pageCheck();
         window.addEventListener("resize", this.onResize);
-      });
-    }
-  },
-  beforeDestroy() {
-    // Unregister the event listener before destroying this Vue instance
+      )
+  beforeDestroy:()->
+    # Unregister the event listener before destroying this Vue instance
     window.removeEventListener("resize", this.onResize);
-  }
 };
 </script>
 
