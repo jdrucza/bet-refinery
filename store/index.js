@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import moment from 'moment'
 Vue.use(Vuex)
 
 const createStore = () =>
@@ -44,7 +45,13 @@ const createStore = () =>
           ...context(key),
           _path: `/blog/${key.replace('.json', '').replace('./', '')}`
         }));
-        commit('SET_POSTS', searchposts.reverse())
+        const sortFunction = function(p1,p2) {
+          const dateFormat = "dddd MMMM Do, YYYY";
+          const p2Date = moment(p2.date,dateFormat);
+          const p1Date = moment(p1.date,dateFormat);
+          return p2Date.diff(p1Date);
+        }
+        commit('SET_POSTS', searchposts.sort(sortFunction))
       },
 
       async getPages({ state, commit }) {
