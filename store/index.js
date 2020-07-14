@@ -3,6 +3,13 @@ import Vuex from 'vuex'
 import moment from 'moment'
 Vue.use(Vuex)
 
+const sortFunction = function(p1,p2) {
+  const dateFormat = "dddd MMMM Do, YYYY";
+  const p2Date = moment(p2.date,dateFormat);
+  const p1Date = moment(p1.date,dateFormat);
+  return p2Date.diff(p1Date);
+}
+
 const createStore = () =>
   new Vuex.Store({
     state: {
@@ -24,6 +31,7 @@ const createStore = () =>
       theCrumb: '',
       allCats: [],
       allSports: [],
+      allPromotions: [],
       results: [],
       resultsnum: [],
       pagination: false,
@@ -37,6 +45,7 @@ const createStore = () =>
         await dispatch('getPages')
         await dispatch('getCats')
         await dispatch('getSports')
+        await dispatch('getPromotions')
       },
       
       async getBlogPosts({ state, commit }) {
@@ -45,12 +54,6 @@ const createStore = () =>
           ...context(key),
           _path: `/blog/${key.replace('.json', '').replace('./', '')}`
         }));
-        const sortFunction = function(p1,p2) {
-          const dateFormat = "dddd MMMM Do, YYYY";
-          const p2Date = moment(p2.date,dateFormat);
-          const p1Date = moment(p1.date,dateFormat);
-          return p2Date.diff(p1Date);
-        }
         commit('SET_POSTS', searchposts.sort(sortFunction))
       },
 
@@ -93,6 +96,16 @@ const createStore = () =>
         commit('SET_SPORTS', sports)
       },
 
+      async getPromotions({ state, commit }) {
+        const promotionsFiles = await require.context('~/content/promotions/', false, /\.json$/);
+        const promotions = await promotionsFiles.keys().map(fileName => ({
+          ...promotionsFiles(fileName),
+          _path: `/promotions/${fileName.replace('.json', '').replace('./', '')}`,
+          promotion: true
+        }));
+        commit('SET_PROMOTIONS', promotions.sort(sortFunction))
+      },
+
       async getTags({ state, commit }) {
         const context = await require.context('~/content/tags/posts/', false, /\.json$/);
         const pages = await context.keys().map(key => ({
@@ -129,6 +142,9 @@ const createStore = () =>
       },
       SET_SPORTS(state, data) {
         state.allSports = data
+      },
+      SET_PROMOTIONS(state, data) {
+        state.allPromotions = data
       },
       SET_CRUMB(state, data) {
         state.theCrumb = data

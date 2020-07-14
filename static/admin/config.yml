@@ -18,7 +18,7 @@ collections:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "SEO Title", name: "seoTitle", widget: "string"}
       - {label: "SEO Name", name: "seoName", widget: "string"}
-      - {label: "Headline Title", name: "headlineTitle", widget: "string", required: false}
+      - {label: "Headline Title", name: "headlineTitle", hint: "Set this to have a link to this article appear in the top menu", widget: "string", required: false}
       - {label: "Publish Date", name: "date", widget: "datetime", format: "dddd MMMM Do, YYYY"}
       - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}
       - {label: "Category", name: "category", widget: "relation", collection: "blogcategories", searchFields: ["title"], valueField: "title", displayFields: ["title"], required: false}
@@ -57,6 +57,25 @@ collections:
       - {label: "Meta Description", name: "description", widget: "string"}
       - {label: "Summary Content", name: "summary", widget: "markdown"}
       - {label: "Main Content", name: "mainContent", widget: "markdown"}
+  - name: "promotions" # Used in routes, e.g., /admin/collections/blog
+    label: "Promotions" # Used in the UI
+    folder: "content/promotions" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{seoName}}"
+    format: 'json'
+    sort: "date:desc" # Default is title:asc
+    fields: # The fields for each document, usually in front matter
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "SEO Title", name: "seoTitle", widget: "string"}
+      - {label: "SEO Name", name: "seoName", widget: "string"}
+      - {label: "Direct Link", name: "directLink", hint: "Set this to have the user sent straight to the promoter's site from the list/grid view.", widget: "string", required: false}
+      - {label: "Headline Title", name: "headlineTitle", hint: "Set this to have a link to this article appear in the top menu", widget: "string", required: false}
+      - {label: "Publish Date", name: "date", widget: "datetime", format: "dddd MMMM Do, YYYY"}
+      - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Focus Keyword", name: "yoast_keyword", widget: "string"}
+      - {label: "Meta Description", name: "description", widget: "string"}
+      - {label: "Headline", name: headline, widget: boolean, required: false}
   - label: "Setup"
     name: "setup"
     files:
