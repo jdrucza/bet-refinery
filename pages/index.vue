@@ -3,38 +3,40 @@
     <component :is="getLayout" :allitems="allBlogPosts"></component>
 </template>
 
-<script>
+<script lang="coffee">
 import BaelGrid from "~/components/BaelGrid";
 import FullGrid from "~/components/FullGrid";
 export default {
-    watchQuery: ['page'],
-
-   transition (to, from) {
-     
-    if (!from) return 'fade'
-    return +to.query.page > +from.query.page ? 'slide-right' : 'slide-left'
-  },
-  name: "Index",
-  components: { BaelGrid,FullGrid },
-  data() {
-    return {};
-  },
-  methods: {},
-
-  computed: {
-    allBlogPosts() {
-      return this.$store.state.blogPosts;
-    },
-    getLayout() {
-if (this.$store.state.siteInfo.altlayout == false ) {
-  return 'BaelGrid'
-} else if (this.$store.state.siteInfo.altlayout == true ) {
-  return 'FullGrid'
+  watchQuery: ['page'],
+  transition: (end, start)-> 
+    unless start?
+      'fade' 
+    else 
+      if +end.query.page > +start.query.page then 'slide-right' else 'slide-left'
+  name: "Index"
+  components: { BaelGrid,FullGrid }
+  data:()->
+    {}
+  methods: {}
+  computed:
+    allBlogPosts:()->
+      postsAndPromotions = []
+      currentPromotionIndex = 0
+      promotions = @.$store.state.allPromotions
+      for post in @.$store.state.blogPosts
+        postsAndPromotions.push(post)
+        if promotions.length > 0 and (postsAndPromotions.length % 5 == 4)
+          postsAndPromotions.push(promotions[currentPromotionIndex])
+          currentPromotionIndex++
+          currentPromotionIndex = 0 if currentPromotionIndex == promotions.length
+      postsAndPromotions.push(promotions[currentPromotionIndex]) if promotions.length > 0 # always add one to the end
+      postsAndPromotions
+    getLayout:()->
+      if @.$store.state.siteInfo.altlayout == false
+        'BaelGrid'
+      else if @.$store.state.siteInfo.altlayout == true
+        'FullGrid'
 }
-
-    }
-  }
-};
 </script>
 
 <style>

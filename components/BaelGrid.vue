@@ -8,7 +8,10 @@
             <img class="featured-image-small" :src="p.thumbnail" :alt="p.title" />
           </div>
           <div style="height:35%">
-            <nuxt-link class="xs-text-center xs-flex xs-flex-align-center xs-full-height xs-flex-justify-center" :to="`${path(p)}`">
+            <a v-if="p.directLink" :href="p.directLink" class="xs-text-center xs-flex xs-flex-align-center xs-full-height xs-flex-justify-center">
+              <div>{{p.title}}</div>
+            </a> 
+            <nuxt-link v-else class="xs-text-center xs-flex xs-flex-align-center xs-full-height xs-flex-justify-center" :to="`${path(p)}`">
               <div>{{p.title}}</div>
             </nuxt-link>
           </div>

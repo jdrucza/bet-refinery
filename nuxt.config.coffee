@@ -45,6 +45,7 @@ dynamicRoutes = getDynamicPaths({
   '/page': 'page/posts/*.json',
   '/category': 'categories/posts/*.json',
   '/sports': 'sports/*.json',
+  '/promotions': 'promotions/*.json',
   '/tagged': 'tags/posts/*.json'
 })
 

@@ -17,65 +17,50 @@
       <li class="zap-slideout-menu-item--small">
         <nuxt-link to="/" exact>Home</nuxt-link>
       </li>
-         <li v-if="this.$store.state.allCats" class="zap-slideout-menu-item--small">
-        <nuxt-link to="/categories" exact>Categories</nuxt-link>
-      </li>
       <li v-if="myPages" v-for="(pg,i) in myPages" :key="`pg-${i}`" class="zap-slideout-menu-item--small">
         <nuxt-link :to="pg._path">{{pg.title}}</nuxt-link>
       </li>
-      <li v-if="menuLinks" class="xs-mt5 zap-slideout-menu-item black-font">
-        Links
+      <li class="xs-mt5 zap-slideout-menu-item black-font">
+        Sports
       </li>
-      <li v-if="menuLinks" v-for="m in menuLinks" :key="m.position" class="zap-slideout-menu-item--small">
-        <a :href="m.link">{{m.name}}</a>
+      <li v-for="sport in allSports" :key="sport.name" class="zap-slideout-menu-item--small">
+        <nuxt-link :to="sportPath(sport)">{{sport.name}}</nuxt-link>
       </li>
     </ul>
   </div>
 </template>
 
-<script>
+<script lang="coffee">
 export default {
-  data() {
-    return {
-      isOpen: false
-    };
-  },
-  computed: {
-    menuLinks() {
-      return this.$store.state.siteInfo.menu;
-    },
-    myPages() {
-      return this.$store.state.allPages;
-    },
+  data: ()->
+    { isOpen: false }
+  computed: 
+    allSports: ()->
+      @.$store.state.allSports
+    menuLinks: ()->
+      @.$store.state.siteInfo.menu
+    myPages: ()->
+      @.$store.state.allPages
+    menuSiteName: ()->
+      @.$store.state.siteInfo.sitename
+  methods:
+    open: ()->
+      @.isOpen = true
+    close: ()->
+      @.isOpen = false
+    sportPath: (sport)->
+      sport._path.replace("/sports",'') + "-betting"
+    toggle: ()->
+      # // Look for .hamburger
+      @.$store.commit("toggleMenuState");
 
-    menuSiteName() {
-      return this.$store.state.siteInfo.sitename;
-    }
-  },
-  methods: {
-    open() {
-      this.isOpen = true;
-    },
-    close() {
-      this.isOpen = false;
-    },
-    toggle() {
-      // Look for .hamburger
-      this.$store.commit("toggleMenuState");
+      hamburger = document.querySelector(".hamburger");
+      # // On click
 
-      var hamburger = document.querySelector(".hamburger");
-      // On click
+      # // Toggle class "is-active"
 
-      // Toggle class "is-active"
-
-      if (this.isOpen) {
-        this.close();
-      } else {
-        this.open();
-      }
-    }
-  }
-};
+      if (@.isOpen) then @.close() else @.open()
+}
 </script>
   <style lang="scss">
 .black-font {

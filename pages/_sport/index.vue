@@ -5,6 +5,7 @@
 
 <script lang="coffee">
 import BaelGrid from '~/components/BaelGrid'
+import moment from "moment"
 
 export default {
   asyncData: ({ params, app, payload, route, store })->
@@ -32,7 +33,18 @@ export default {
       console.log "THIS:", @
       console.log "name:", @.name
       console.log "blogPosts", @.$store.state.blogPosts
-      post for post in this.$store.state.blogPosts when post.sport == this.name
+      console.log "promotions", @.$store.state.allPromotions
+      postsAndPromotions = []
+      currentPromotionIndex = 0
+      promotions = @.$store.state.allPromotions
+      for post in this.$store.state.blogPosts when post.sport == this.name
+        postsAndPromotions.push(post)
+        if promotions.length > 0 and (postsAndPromotions.length % 5 == 4)
+          postsAndPromotions.push(promotions[currentPromotionIndex])
+          currentPromotionIndex++
+          currentPromotionIndex = 0 if currentPromotionIndex == promotions.length
+      postsAndPromotions.push(promotions[currentPromotionIndex]) if promotions.length > 0 # always add one to the end
+      postsAndPromotions
 }
 </script>
 

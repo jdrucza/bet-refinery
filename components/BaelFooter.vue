@@ -38,10 +38,13 @@
         <div v-if="signupBoolean" class="c-25 xs-text-left xs-p2 xs-border">
             <div v-if="!sent" class="item">
                 <div class="footer__heading xs-mb2">Newsletter Signup</div>
-                <form @submit.prevent="processForm" action="/.netlify/functions/app" name="mailinglist">
+                <div>
+                    Our newsletter launches in August 2020.
+                </div>
+                <!-- <form @submit.prevent="processForm" action="/.netlify/functions/app" name="mailinglist">
                     <input type="email" v-model="emaildata.email" class="text-input text-input--small xs-mb1 xs-mr2" placeholder="you@email.com">
                     <button type="submit" class="subscribe-button button--small">Submit</button>
-                </form>
+                </form> -->
             </div>
             <div class="item" v-else>
                 <div class="xs-mb2">{{emaildata.email}} has been added to our newsletter.</div>
@@ -60,9 +63,12 @@
         </div>
         <div class="xs-text-left xs-p2 xs-border" :class="signupAboutSize">
             <div class="item">
-                <div class="footer__heading xs-mb2">Win</div>
+                <div class="footer__heading xs-mb2">Contact Us</div>
 
-                Some inspirational resources perhaps...
+                <p>Want to get in touch with the guys about anything Bet Refinery?</p>
+                <p>&larr; Send us an email.</p>
+
+                <p>We are not currently looking for investment but please register your interest for future opportunities with the email above.</p>
 
             </div>
         </div>
