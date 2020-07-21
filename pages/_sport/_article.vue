@@ -155,14 +155,16 @@ export default {
 
     drawGraph: ()->
       @.charts = @.charts or []
-      jsonResponse = await @.$axios.get('/data/Election_odds_json.json')
-      data = jsonResponse.data
+      @.chartData = @.chartData or {}
       mobileView = window?.innerWidth < 700
       console.log("getting graph eelemeentS")
       for graphEl in document.getElementsByName('brgraph')
         if (graphEl != null and not @.charts[graphEl.id]?)
           onlyNames = graphEl.getAttribute('data-only-names')?.split(',')
           dataStart = graphEl.getAttribute('data-start')
+          dataFileName = graphEl.getAttribute('data-file-name')
+          @.chartData[dataFileName] = await @.$axios.get("/data/#{dataFileName}") unless @.chartData[dataFileName]?
+          data = @.chartData[dataFileName]?.data
           startDateTime = if dataStart? then moment(dataStart,"YYYY-MM-DD hh:mm").valueOf() else 0
           dataEnd = graphEl.getAttribute('data-end')
           endDateTime = moment(dataEnd,"YYYY-MM-DD hh:mm").valueOf() if dataEnd
