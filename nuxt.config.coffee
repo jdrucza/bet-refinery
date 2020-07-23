@@ -77,7 +77,7 @@ module.exports = {
 
   # ** Customize the progress bar color
   loading: 
-    color: '#ff1493'
+    color: '#13F0FF'
   modules: ['@nuxtjs/markdownit', '@nuxtjs/pwa', '@nuxtjs/axios', '@modules/coffeescript', '@nuxtjs/google-analytics', '@nuxtjs/gtm']
   googleAnalytics:
     id: 'UA-173154418-1'
