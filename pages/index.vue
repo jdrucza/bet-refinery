@@ -29,7 +29,8 @@ export default {
           postsAndPromotions.push(promotions[currentPromotionIndex])
           currentPromotionIndex++
           currentPromotionIndex = 0 if currentPromotionIndex == promotions.length
-      postsAndPromotions.push(promotions[currentPromotionIndex]) if promotions.length > 0 # always add one to the end
+      # add a promotion to the end if none have been    
+      postsAndPromotions.push(promotions[currentPromotionIndex]) if promotions.length > 0 and postsAndPromotions.length < 5
       postsAndPromotions
     getLayout:()->
       if @.$store.state.siteInfo.altlayout == false
