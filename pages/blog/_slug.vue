@@ -33,8 +33,27 @@ import Chart from "chart.js"
 import moment from "moment"
 import neatCsv from "neat-csv"
 
+_colors = [
+  'rgb(255,20,147)'
+  'rgb(20,255,147)'
+  'rgb(20,147,255)'
+  'rgb(255,20,255)'
+  'rgb(255,255,20)'
+  'rgb(20,255,255)'
+  'rgb(255,147,20)'
+  'rgb(147,255,20)'
+  'rgb(147,20,255)'
+  'rgb(83,83,255)'
+  'rgb(83,255,83)'
+  'rgb(255,83,83)'
+  'rgb(20,201,201)'
+  'rgb(201,20,201)'
+  'rgb(201,201,20)'
+]
+
 export default {
   asyncData: ({ params, app, payload, route, store }) ->
+    console.log { params, app, payload, route, store }
     post = await import("~/content/blog/posts/" + params.slug + ".json");
    
     await store.commit("SET_TITLE", post.title);
@@ -64,25 +83,8 @@ export default {
     {}
 
   methods:
-    config: (rawData, mobileView, candidateNames, startDateTime=0, endDateTime=Infinity)->
+    config: (rawData, mobileView, candidateNames, startDateTime=0, endDateTime=Infinity, color=_colors)->
       color = Chart.helpers.color
-      colors = [
-        'rgb(255,20,147)'
-        'rgb(20,255,147)'
-        'rgb(20,147,255)'
-        'rgb(255,20,255)'
-        'rgb(255,255,20)'
-        'rgb(20,255,255)'
-        'rgb(255,147,20)'
-        'rgb(147,255,20)'
-        'rgb(147,20,255)'
-        'rgb(83,83,255)'
-        'rgb(83,255,83)'
-        'rgb(255,83,83)'
-        'rgb(20,201,201)'
-        'rgb(201,20,201)'
-        'rgb(201,201,20)'
-      ]
       backgroundColor = (context)-> color(colors[context.datasetIndex]).alpha(0.5).rgbString()
       borderColor = (context)-> colors[context.datasetIndex]
       datasets = []
@@ -162,6 +164,7 @@ export default {
       for graphEl in document.getElementsByName('brgraph')
         if (graphEl != null and not @.charts[graphEl.id]?)
           onlyNames = graphEl.getAttribute('data-only-names')?.split(',')
+          colors = graphEl.getAttribute('data-colors')?.split(',')
           dataStart = graphEl.getAttribute('data-start')
           dataFileName = graphEl.getAttribute('data-file-name')
           @.chartData[dataFileName] = await @.$axios.get("/data/#{dataFileName}") unless @.chartData[dataFileName]?
@@ -171,7 +174,7 @@ export default {
           endDateTime = moment(dataEnd,"YYYY-MM-DD hh:mm").valueOf() if dataEnd
           # graphEl.style.backgroundColor = 'rgb(0,0,0)'
           context = graphEl.getContext('2d')
-          @.charts[graphEl.id] = new Chart(context, @.config(data, mobileView, onlyNames, startDateTime, endDateTime))
+          @.charts[graphEl.id] = new Chart(context, @.config(data, mobileView, onlyNames, startDateTime, endDateTime, colors))
 
   updated: ()->
     if process.browser
