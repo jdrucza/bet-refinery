@@ -134,8 +134,9 @@ export default {
               boxWidth: if mobileView then 10 else 40
               fontSize: if mobileView then 8 else 12
           tooltips:
-            intersect: false,
-            mode: 'index',
+            intersect: false
+            mode: 'index'
+            bodyFontSize: if mobileView then 12 else 16
             callbacks:
               label: (tooltipItem, myData)->
                 label = myData.datasets[tooltipItem.datasetIndex].label || ''
@@ -161,6 +162,8 @@ export default {
       console.log("getting graph eelemeentS")
       for graphEl in document.getElementsByName('brgraph')
         if (graphEl != null and not @.charts[graphEl.id]?)
+          height = graphEl.height
+          graphEl.height = height * 1.3 if mobileView
           onlyNames = graphEl.getAttribute('data-only-names')?.split(',')
           colors = graphEl.getAttribute('data-colors')?.split(',')
           dataStart = graphEl.getAttribute('data-start')
