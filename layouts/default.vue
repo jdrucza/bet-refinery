@@ -74,8 +74,14 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
+@media only screen and (max-width: 700px) {
+  .main-title { font-size: 2rem !important; }
+}
+@media only screen and (min-width: 701px) {
+  .main-title { font-size: 3rem !important; }
+}
 .main-title {
-  font-size: 3rem;
+  /* font-size: 3rem; */
   font-family: "Archivo Black", sans-serif;
   font-weight: 400;
   line-height: 1;
