@@ -4,7 +4,7 @@
   "seoTitle": "test",
   "seoName": "test",
   "sport": "AFL",
-  "body": "Just a test of the editorial workflow.",
+  "body": "Just a test of the editorial workflow.\n\n\n\nA change to hopefully trigger the preview availability.",
   "yoast_keyword": "test",
   "description": "test"
 }
