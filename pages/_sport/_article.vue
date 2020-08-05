@@ -31,6 +31,7 @@ import MdWrapper from "~/components/MdWrapper"
 import Chart from "chart.js"
 import moment from "moment"
 import neatCsv from "neat-csv"
+Tabulator = require("tabulator-tables")
 
 _colors = [
   'rgb(255,20,147)'
@@ -177,6 +178,27 @@ export default {
           context = graphEl.getContext('2d')
           @.charts[graphEl.id] = new Chart(context, @.config(data, mobileView, onlyNames, startDateTime, endDateTime, colors))
 
+    showTables: ()->
+      for tableEl in document.getElementsByName('brtable')
+        dataFileName = tableEl.getAttribute('data-file-name')
+        console.log { dataFileName }
+        tableDataResponse = await @.$axios.get("/data/#{dataFileName}")
+        console.log { tableDataResponse }
+        tableData = tableDataResponse?.data
+        
+        tableInstance = new Tabulator(tableEl, 
+          {
+            data: tableData
+            layout: "fitColumns"
+            columns: [
+              {title: "Rank", field: "tournRank"}
+              {title: "Name", field: "playerName"}
+              {title: "Win %", field: "winPct"}
+              {title: "Fair Odds", field: "fairOdds"}
+            ]
+          }
+        )
+
   updated: ()->
     if process.browser
       this.$nextTick(() =>
@@ -184,6 +206,7 @@ export default {
         console.log(this.$store.state.navheight)
         console.log("article updated")
         this.drawGraph()
+        @.showTables()
       )
 
   mounted: ()->
@@ -214,3 +237,10 @@ export default {
     MdWrapper
 }
 </script>
+
+<style lang="scss">
+  // @import  "~vue-tabulator/dist/scss/bootstrap/tabulator_bootstrap4";
+  // @import  "~tabulator-tables/dist/css/bootstrap/tabulator_bootstrap4";
+  // @import  "~tabulator-tables/dist/css/materialize/tabulator_materialize";
+  @import  "~tabulator-tables/dist/css/tabulator_midnight";
+</style>
