@@ -185,10 +185,12 @@ export default {
         tableDataResponse = await @.$axios.get("/data/#{dataFileName}")
         console.log { tableDataResponse }
         tableData = tableDataResponse?.data
+        height = tableEl.getAttribute('height')
         
         tableInstance = new Tabulator(tableEl, 
           {
             data: tableData
+            height: height if height?
             layout: "fitColumns"
             columns: [
               {title: "Rank", field: "tournRank"}
