@@ -192,12 +192,7 @@ export default {
             data: tableData
             height: height if height?
             layout: "fitColumns"
-            columns: [
-              {title: "Rank", field: "tournRank"}
-              {title: "Name", field: "playerName"}
-              {title: "Win %", field: "winPct"}
-              {title: "Fair Odds", field: "fairOdds"}
-            ]
+            autoColumns: true
           }
         )
 
