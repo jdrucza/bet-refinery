@@ -13,3 +13,6 @@ dist
 # Nuxt generate
 sw.*
 
+
+# Local Netlify folder
+.netlify
