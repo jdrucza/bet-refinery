@@ -23,7 +23,6 @@ for sportFilePath in glob.sync("content/sports/*.json")
   sport = require("./#{sportFilePath}") 
   sportFileName = path.basename(sportFilePath, '.json')
   sports[sport.name] = { sport..., fileName: sportFileName }
-console.log { sports }
 
 articleWithFileName = (articleFilePath, article)->
   articleFileName = path.basename(articleFilePath, '.json')
@@ -51,8 +50,6 @@ dynamicRoutes = getDynamicPaths({
 
 dynamicRoutes = [dynamicRoutes..., sportArticlesUrls...]
 
-console.log({ dynamicRoutes })
-
 module.exports = {
   mode: "universal",
   # ** Headers of the page
@@ -78,7 +75,14 @@ module.exports = {
   # ** Customize the progress bar color
   loading: 
     color: '#000000'
-  modules: ['@nuxtjs/markdownit', '@nuxtjs/pwa', '@nuxtjs/axios', '@modules/coffeescript', '@nuxtjs/google-analytics', '@nuxtjs/gtm']
+  modules: [
+    '@nuxtjs/markdownit'
+    '@nuxtjs/pwa'
+    '@nuxtjs/axios'
+    '@modules/coffeescript'
+    '@nuxtjs/google-analytics'
+    '@nuxtjs/gtm'
+  ]
   googleAnalytics:
     id: 'UA-173154418-1'
   gtm:

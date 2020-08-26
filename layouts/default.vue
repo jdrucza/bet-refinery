@@ -65,8 +65,8 @@ return this.$store.state.pagination
 };
 </script>
 
-
-<style>
+<style lang="scss">
+@import  "~tabulator-tables/dist/css/tabulator_midnight";
 html,
 body {
   -moz-osx-font-smoothing: grayscale;
