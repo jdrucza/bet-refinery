@@ -140,7 +140,7 @@ export default {
     nextpage: ()->
       Number(this.queryParam) + 1
     queryParam: ()->
-      if (this.$route.query.page == null) then 1 else Number(this.$route.query.page)
+      if @.$route.query.page? then Number(this.$route.query.page) else 1
     connectData: ()->
       this.$store.state.connect.connectlinks
     siteDescription: ()->
