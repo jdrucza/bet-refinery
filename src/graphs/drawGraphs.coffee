@@ -88,7 +88,6 @@ export default {
     @.charts = @.charts or []
     @.chartData = @.chartData or {}
     mobileView = window?.innerWidth < 700
-    console.log("getting graph eelemeentS")
     for graphEl in document.getElementsByName('brgraph')
       if (graphEl != null and not @.charts[graphEl.id]?)
         height = graphEl.height

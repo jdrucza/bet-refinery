@@ -27,9 +27,13 @@
 
 
 <script lang="coffee">
+import Vue from 'vue'
 import MdWrapper from "~/components/MdWrapper"
+import NewsLetterSignup from "~/components/NewsLetterSignup"
 import drawGraphs from "~/src/graphs/drawGraphs"
 import showTables from "~/src/tables/showTables"
+
+NewsLetterSignupComponent = Vue.extend(NewsLetterSignup)
 
 export default {
   asyncData: ({ params, app, payload, route, store }) ->
@@ -76,6 +80,13 @@ export default {
 
     showTables: showTables.showTables
 
+    showNewsLetterSignups: ()->
+      for signupEl in document.getElementsByName('brsignup')
+        # TODO having to set axios feels a little hacky, try setting parent relationship 
+        instance = new NewsLetterSignupComponent({ propsData: { axios: @$axios } })
+        instance.$slots.default = [ signupEl.innerHTML ]
+        instance.$mount(signupEl)
+
   updated: ()->
     if process.browser
       this.$nextTick(() =>
@@ -84,6 +95,7 @@ export default {
         console.log("article updated")
         @.drawGraphs()
         @.showTables()
+        @.showNewsLetterSignups()
       )
 
   mounted: ()->
@@ -110,7 +122,9 @@ export default {
     navbarheight: ()->
       return this.$store.state.navheight
 
-  components:
+  components: {
     MdWrapper
+    NewsLetterSignup
+  }
 }
 </script>
