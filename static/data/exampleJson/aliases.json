@@ -1,0 +1,18 @@
+{
+  "_id": "s978dfs9d87s6f9ds",
+  "aliases": [
+    {
+      "names": ["list", "of", "some", "aliases"]
+    },
+    {
+      "scope": { 
+        "optional": "scope Object",
+        "eventTypeId": "s98df9ss0df98s",
+        "bookmakerId": "2l3jk4l3j4l2j4",
+        "eventId": "s98d7fdg65dsg",
+        "marketId": "34l65k3j454l5"
+      },
+      "names": ["list", "of", "names", "in", "scope"]
+    }
+  ]
+}

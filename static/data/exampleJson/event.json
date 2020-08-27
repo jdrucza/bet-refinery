@@ -1,0 +1,8 @@
+{
+  "_id": "s978dfs9d87s6f9ds",
+  "name": "Event Name",
+  "eventTypeId": "23l4k2j3ljljllijlj87",
+  "parentEventId": "optionalId",
+  "ancestorEventIds": ["optional", "list", "of", "ancestor", "eventIds"],
+  "aliasesId": "s9d8f9sdf9sd"
+}
