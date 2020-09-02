@@ -137,8 +137,9 @@ export default {
 
 <style scoped>
   a {
-    font-size: 1rem;
-    font-family: "Archivo Black", sans-serif;
+    font-size: 1.2rem;
+    font-family: "Inconsolata", sans-serif;
+    font-weight: 800;
     color: black;
     /* text-decoration-style: solid;
     text-decoration-line: underline;

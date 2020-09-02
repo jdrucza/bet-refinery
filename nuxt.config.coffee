@@ -66,7 +66,8 @@ module.exports = {
     ]
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Archivo+Black' }
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap' }
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;600;800&display=swap' }
     ]
   css: ["@/assets/grid.css", "bf-solid/dist/solid.latest.css"]
   # icon:

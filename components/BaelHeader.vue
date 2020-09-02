@@ -4,7 +4,10 @@
 
       <div class="c-4 xs-text-left xs-p2 sm-border-right">
         <div class="item">
-          <nuxt-link class="sitename" to="/" exact>{{headerSiteName}}</nuxt-link>
+          <nuxt-link class="sitename" to="/" exact>
+            <img style="width:22px;height:22px;vertical-align:text-bottom;" v-if="this.$store.state.siteInfo.siteicon" :src="this.$store.state.siteInfo.siteicon">
+            {{headerSiteName}}
+          </nuxt-link>
         </div>
       </div>
 
@@ -102,12 +105,13 @@ nav {
   left: 0;
   right: 0;
 }
+nav a:hover { color: deeppink; }
 .sitename {
   color: #000;
-  font-family: "Archivo Black", sans-serif;
+  font-family: "Inconsolata", sans-serif;
   text-transform: uppercase;
-  font-weight: 400;
-  font-size: 18px;
+  font-weight: 800;
+  font-size: 20px;
 }
 @media only screen and (max-width: 40rem) {
   .results {
@@ -118,10 +122,10 @@ nav {
   color: white;
   text-decoration-line: underline;
   text-decoration-color: deeppink;
-  font-family: "Archivo Black", sans-serif;
+  font-family: "Inconsolata", sans-serif;
   text-transform: uppercase;
-  font-weight: 300;
-  font-size: 14px;
+  font-weight: 800;
+  font-size: 18px;
 }
 
 .sports-nav > a:hover {
