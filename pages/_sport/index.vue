@@ -33,10 +33,10 @@ export default {
       console.log "THIS:", @
       console.log "name:", @.name
       console.log "blogPosts", @.$store.state.blogPosts
-      console.log "promotions", @.$store.state.allPromotions
       postsAndPromotions = []
       currentPromotionIndex = 0
-      promotions = @.$store.state.allPromotions
+      promotions = @.$store.getters.promotionsForCountry
+      console.log "promotions", promotions
       for post in this.$store.state.blogPosts when post.sport == this.name
         postsAndPromotions.push(post)
         if promotions.length > 0 and (postsAndPromotions.length % 5 == 4)

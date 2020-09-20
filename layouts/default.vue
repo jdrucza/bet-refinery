@@ -28,6 +28,9 @@ export default {
       }
     }
   },
+  beforeCreate() {
+    this.$store.dispatch('getCountry')
+  },
   updated() {
     if (process.browser) {
       this.$nextTick(() => {
@@ -44,7 +47,6 @@ export default {
         console.log(this.$store.state.navheight);
         console.log("default mounted");
       });
-      this.$store.dispatch('getCountry')
     }
   },
   computed: {

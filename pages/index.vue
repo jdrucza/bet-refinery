@@ -18,22 +18,11 @@ export default {
   name: "Index"
   components: { BaelGrid,FullGrid }
   data:()->
-    {}
+    {
+      allBlogPosts: @.$store.getters.allBlogPosts
+    }
   methods: {}
   computed:
-    allBlogPosts:()->
-      postsAndPromotions = []
-      currentPromotionIndex = 0
-      promotions = (promotion for promotion in @.$store.state.allPromotions when appliesToCountry(promotion, @.$store.state.country))
-      for post in @.$store.state.blogPosts
-        postsAndPromotions.push(post)
-        if promotions.length > 0 and (postsAndPromotions.length % 5 == 4)
-          postsAndPromotions.push(promotions[currentPromotionIndex])
-          currentPromotionIndex++
-          currentPromotionIndex = 0 if currentPromotionIndex == promotions.length
-      # add a promotion to the end if none have been    
-      postsAndPromotions.push(promotions[currentPromotionIndex]) if promotions.length > 0 and postsAndPromotions.length < 5
-      postsAndPromotions
     getLayout:()->
       if @.$store.state.siteInfo.altlayout == false
         'BaelGrid'

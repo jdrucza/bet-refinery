@@ -74,7 +74,6 @@ export default {
         this.$store.commit("SET_NAVHEIGHT", height - 1)
 
     path: (post)->
-      console.log("PATH:", post._path)
       sportName = "/#{post.sport?.toLowerCase().replace(/ /g, "-")}-betting" or ""
       post._path.replace("/blog", sportName )
 
