@@ -4,8 +4,10 @@
 </template>
 
 <script lang="coffee">
-import BaelGrid from "~/components/BaelGrid";
-import FullGrid from "~/components/FullGrid";
+import BaelGrid from "~/components/BaelGrid"
+import FullGrid from "~/components/FullGrid"
+import promotionFilter from "~/src/promotionFilter"
+appliesToCountry = promotionFilter.appliesToCountry
 export default {
   watchQuery: ['page'],
   transition: (end, start)-> 
@@ -22,7 +24,7 @@ export default {
     allBlogPosts:()->
       postsAndPromotions = []
       currentPromotionIndex = 0
-      promotions = @.$store.state.allPromotions
+      promotions = (promotion for promotion in @.$store.state.allPromotions when appliesToCountry(promotion, @.$store.state.country))
       for post in @.$store.state.blogPosts
         postsAndPromotions.push(post)
         if promotions.length > 0 and (postsAndPromotions.length % 5 == 4)

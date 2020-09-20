@@ -44,6 +44,7 @@ export default {
         console.log(this.$store.state.navheight);
         console.log("default mounted");
       });
+      this.$store.dispatch('getCountry')
     }
   },
   computed: {

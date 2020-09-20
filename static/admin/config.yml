@@ -67,6 +67,8 @@ collections:
     sort: "date:desc" # Default is title:asc
     fields: # The fields for each document, usually in front matter
       - {label: "Title", name: "title", widget: "string"}
+      - {label: "Only Countries", name: "onlyCountries", widget: "list", required: false}
+      - {label: "Except Countries", name: "exceptCountries", widget: "list", required: false}
       - {label: "SEO Title", name: "seoTitle", widget: "string"}
       - {label: "SEO Name", name: "seoName", widget: "string"}
       - {label: "Direct Link", name: "directLink", hint: "Set this to have the user sent straight to the promoter's site from the list/grid view.", widget: "string", required: false}

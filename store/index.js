@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import moment from 'moment'
+import axios from 'axios'
+import Cookies from 'js-cookie'
 Vue.use(Vuex)
 
 const sortFunction = function(p1,p2) {
@@ -36,7 +38,8 @@ const createStore = () =>
       resultsnum: [],
       pagination: false,
       description: '',
-      seoTitle: ''
+      seoTitle: '',
+      country: ''
     },
     actions: {
       async nuxtServerInit({ dispatch }) {
@@ -127,6 +130,21 @@ const createStore = () =>
         commit('SET_POSTS', searchposts)
         commit('SET_INFO', info)
         commit('SET_CONNECT', connect)
+      },
+
+      async getCountry({state, commit}) {
+        var country = Cookies.get('country');
+        if(country === undefined || country == 'undefined' ) {
+          try {
+            const response = await axios.get("https://ipapi.co/country/");
+            country = response.data;
+            Cookies.set('country', country, { expires: 7 })
+          } catch (e) {
+            console.log("Can't get country, defaulting to US", e);
+            country = 'US';
+          }
+        } else { console.log("got COUNTRY from cookie:", country) }
+        commit('SET_COUNTRY', country);
       }
     },
 
@@ -190,6 +208,9 @@ const createStore = () =>
       },
       SET_RESULTS(state, data) {
         state.results = data
+      },
+      SET_COUNTRY(state, country) {
+        state.country = country
       },
       paginateOn(state, data) {
         state.pagination = data
