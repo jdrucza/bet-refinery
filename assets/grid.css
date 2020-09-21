@@ -172,6 +172,29 @@ h6 {
   margin-bottom: 0.5rem;
   font-family: "Inconsolata", sans-serif;
 }
+.post-content .predictIt h1,
+.post-content .predictIt h2,
+.post-content .predictIt h3,
+.post-content .predictIt h4,
+.post-content .predictIt h5,
+.post-content .predictIt h6 {
+  color: #fff;
+  margin-bottom: 0.5rem;
+  font-family: "Inconsolata", sans-serif;
+}
+.post-content .predictIt {
+  background-color: #000;
+  text-align: center;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+}
+.post-content .predictIt a{
+  color: #fff;
+  background-color: deeppink;
+  padding: 0.2rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+}
 .single {
   max-width: 1200px;
   margin: 0 auto;
