@@ -183,10 +183,11 @@ h6 {
   font-family: "Inconsolata", sans-serif;
 }
 .post-content .predictIt {
+  color: #fff;
   background-color: #000;
   text-align: center;
-  padding-top: 0.3rem;
-  padding-bottom: 0.3rem;
+  padding-top: 17px;
+  padding-bottom: 1px;
 }
 .post-content .predictIt a{
   color: #fff;
