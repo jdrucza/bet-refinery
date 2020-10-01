@@ -1,4 +1,4 @@
-Tabulator = require("tabulator-tables")
+import Tabulator from 'tabulator-tables'
 
 export default {
   showTables: ()->
@@ -9,13 +9,12 @@ export default {
       console.log { tableDataResponse }
       tableData = tableDataResponse?.data
       height = tableEl.getAttribute('height')
-      
-      tableInstance = new Tabulator(tableEl, 
-        {
-          data: tableData
-          height: height if height?
-          layout: "fitColumns"
-          autoColumns: true
-        }
-      )
+      tableConfig =
+        data: tableData
+        height: height if height?
+        layout: "fitColumns"
+        autoColumns: true
+        autoColumnsDefinitions:
+          playerId: { visible: false }
+      tableInstance = new Tabulator(tableEl, tableConfig)
 }
