@@ -1,5 +1,8 @@
+# import data from "./ebook"
 sgMail = require("@sendgrid/mail")
 client = require("@sendgrid/client")
+
+eBookData = require('./ebook').data
 
 addSendgridRecipient = (client, email)->
   new Promise((fulfill, reject) -> 
@@ -28,7 +31,7 @@ addSendgridRecipient = (client, email)->
       reject(error)
     )
   )
-sendWelcomeEmail = (client, email, senderEmail, senderName, templateID)->
+sendWelcomeEmail = (client, email, senderEmail, senderName, templateID, eBookFileName)->
   new Promise((fulfill, reject) ->
     data = 
       from:
@@ -46,6 +49,16 @@ sendWelcomeEmail = (client, email, senderEmail, senderName, templateID)->
         }
       ]
       template_id: templateID
+    if eBookFileName? and eBookFileName.length > 0
+      console.log "Attaching EBOOK to email"
+      data.attachments = [
+        {
+          content: eBookData
+          filename: eBookFileName
+          type: "application/pdf"
+          disposition: "attachment"
+        }
+      ]
 
     request =
       method: "POST",
@@ -70,6 +83,7 @@ module.exports = {
     } = process.env
     body = JSON.parse(event.body)
     email = body.email
+    eBookFileName = body.eBookFileName
     # welcomeEmail = event.queryStringParameters.welcome_email == "true"
 
     console.log { body, SENDGRID_API_KEY }
@@ -89,6 +103,7 @@ module.exports = {
       SENDGRID_WELCOME_SENDER_EMAIL
       SENDGRID_WELCOME_SENDER_NAME
       SENDGRID_WELCOME_TEMPLATE_ID
+      eBookFileName
     })
     addSendgridRecipient(client, email)
     .then((response, body)->
@@ -98,8 +113,11 @@ module.exports = {
         SENDGRID_WELCOME_SENDER_EMAIL
         SENDGRID_WELCOME_SENDER_NAME
         SENDGRID_WELCOME_TEMPLATE_ID
+        eBookFileName
       )
-      .then((response)-> callback(null, { statusCode: response.statusCode, body: email + " added" }) )
+      .then((response)-> 
+        callback(null, { statusCode: response.statusCode, body: email + " added" }) 
+      )
       .catch((err)->callback(err, null))
     )
     .catch((err)-> callback(err, null))

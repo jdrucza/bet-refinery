@@ -19,17 +19,19 @@
 
 <script lang="coffee">
 export default {
+  mounted: ()->
+    console.log { eBookFileName: @.eBookFileName }
   data: ()->
     {
       emaildata:
         email: ""
+        eBookFileName: @.eBookFileName
       sent: false
     }
-  props: [ 'axios' ]
+  props: [ 'axios', 'eBookFileName' ]
   methods:
     processForm: ()->
       try
-        console.log @.emaildata
         ajaxCaller = @.axios or @.$axios
         sendgrid = await ajaxCaller.post("#{process.env.API_URL}/.netlify/functions/newsLetterSignup", this.emaildata)
         console.log("Processed!")

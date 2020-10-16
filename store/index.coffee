@@ -157,11 +157,9 @@ createStore = ()=>
       promotionsForCountry: (state, getters)->
        (promotion for promotion in state.allPromotions when appliesToCountry(promotion, state.country))
       allBlogPosts:(state, getters)->
-        console.log "CALCULATIING all blog posts"
         postsAndPromotions = []
         currentPromotionIndex = 0
         promotions = getters.promotionsForCountry
-        console.log { promotions }
         for post in state.blogPosts
           postsAndPromotions.push(post)
           if promotions.length > 0 and (postsAndPromotions.length % 5 == 4)
@@ -170,7 +168,6 @@ createStore = ()=>
             currentPromotionIndex = 0 if currentPromotionIndex == promotions.length
         # add a promotion to the end if none have been    
         postsAndPromotions.push(promotions[currentPromotionIndex]) if promotions.length > 0 and postsAndPromotions.length < 5
-        console.log { postsAndPromotions }
         postsAndPromotions
 
 

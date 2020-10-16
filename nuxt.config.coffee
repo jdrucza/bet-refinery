@@ -119,9 +119,10 @@ module.exports = {
   generate:
     routes: dynamicRoutes
   plugins: [
-    '~/plugins/vuefuse', 
-    { src: "~/plugins/moment", ssr: false }, 
+    '~/plugins/vuefuse'
+    { src: "~/plugins/moment", ssr: false }
     { src: "~/plugins/lazyload", ssr: false }
+    '~/plugins/vue-js-modal'
   ]
   # ** Build configuration
   build:

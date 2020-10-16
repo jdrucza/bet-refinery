@@ -30,9 +30,6 @@ export default {
    
   computed:
     findSportPosts: ()->
-      console.log "THIS:", @
-      console.log "name:", @.name
-      console.log "blogPosts", @.$store.state.blogPosts
       postsAndPromotions = []
       currentPromotionIndex = 0
       promotions = @.$store.getters.promotionsForCountry

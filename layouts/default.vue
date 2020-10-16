@@ -5,67 +5,82 @@
     <nuxt/>
     <SlideOut/>
     <BaelFooter :pagination="paginate" />
+    <modal name='e-book-prompt' :adaptive="true">
+      <NewsLetterSignup e-book-file-name="Top Eight Sports Betting Mistakes - Bet Refinery.pdf" class='e-book-exit-prompt'>
+        <h2>Wait! Wouldn't you like to win more?</h2>
+        <br/>
+        <br/>
+        <br/>
+        <p>Sign up to our newsletter to receive a free copy of our ebook</p>
+        <p><b>'Top Eight Sports Betting Mistakes'.</b></p>
+        <br/>
+        <br/>
+        <br/>
+      </NewsLetterSignup>
+    </modal>
   </section>
 </template>
-<script>
-import SlideOut from "~/components/SlideOut";
-import BaelFooter from "~/components/BaelFooter";
-import BaelHeader from "~/components/BaelHeader";
+<script lang="coffee">
+import SlideOut from "~/components/SlideOut"
+import BaelFooter from "~/components/BaelFooter"
+import BaelHeader from "~/components/BaelHeader"
+import exitIntent from "exit-intent-mobile-bugfix"
+import NewsLetterSignup from "~/components/NewsLetterSignup"
 
 export default {
-  data() {
-    return {
+  data: ()->
+    {
       email: { email: "" }
-    };
-  },
-
-  methods: {
-    navHeight() {
-      if (process.browser) {
-        var height = document.getElementById("navbar").clientHeight;
-
-        this.$store.commit("SET_NAVHEIGHT", height - 1);
-      }
     }
-  },
-  beforeCreate() {
+
+  methods:
+    navHeight: ()->
+      if process.browser
+        height = document.getElementById("navbar").clientHeight
+        this.$store.commit("SET_NAVHEIGHT", height - 1)
+    showEBookPrompt: ()->
+      this.$modal.show('e-book-prompt')
+    initExitIntent: ()->
+      @.cancelExitIntent = exitIntent({
+        showAgainAfterSeconds: 180
+        maxDisplays: 3
+        showAfterInactiveSecondsDesktop: 45
+        onExitIntent: ()=>
+          @.showEBookPrompt()
+      })
+  beforeCreate: ()->
     this.$store.dispatch('getCountry')
-  },
-  updated() {
-    if (process.browser) {
-      this.$nextTick(() => {
-        this.navHeight();
-        console.log(this.$store.state.navheight);
-        console.log("default updated");
-      });
-    }
-  },
-  mounted() {
-    if (process.browser) {
-      this.$nextTick(() => {
-        this.navHeight();
-        console.log(this.$store.state.navheight);
-        console.log("default mounted");
-      });
-    }
-  },
-  computed: {
-    paginate() {
-return this.$store.state.pagination
-    },
-    blogposts() {
-      return this.$store.state.blogPosts;
-    },
-    blogtitle() {
-      return this.$store.state.blogTitle;
-    }
-  },
+  updated: ()->
+    if process.browser
+      this.$nextTick(()=>
+        this.navHeight()
+        console.log(this.$store.state.navheight)
+        console.log("default updated")
+      )
+  mounted: ()->
+    if process.browser
+      this.$nextTick(()=>
+        this.navHeight()
+        console.log("default mounted")
+        # @.showEBookPrompt()
+        @.initExitIntent()
+      )
+  beforeDestroy: ()->
+    @.cancelExitIntent()
+  computed:
+    paginate: ()->
+      this.$store.state.pagination
+    blogposts: ()->
+      this.$store.state.blogPosts
+    blogtitle: ()->
+      this.$store.state.blogTitle
   components: {
-    SlideOut,
-    BaelHeader,
+    SlideOut
+    BaelHeader
     BaelFooter
+    NewsLetterSignup
   }
-};
+}
 </script>
 
 <style lang="scss">
@@ -121,5 +136,10 @@ body {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+.e-book-exit-prompt {
+  display: block;
+  padding: 30px;
+  text-align: center;
 }
 </style>

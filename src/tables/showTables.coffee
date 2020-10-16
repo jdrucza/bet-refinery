@@ -14,7 +14,9 @@ export default {
         height: height if height?
         layout: "fitColumns"
         autoColumns: true
-        autoColumnsDefinitions:
-          playerId: { visible: false }
+        autoColumnsDefinitions: (definitions)->
+          for definition in definitions
+            definition.visible = false if /.*Id$/.test(definition.title)
+          definitions
       tableInstance = new Tabulator(tableEl, tableConfig)
 }
