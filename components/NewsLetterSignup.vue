@@ -1,7 +1,11 @@
 <template>
-  <div v-if="!sent">
-    <!-- <slot></slot> -->
-    <form @submit.prevent="processForm" action="/.netlify/functions/newsLetterSignup" name="mailinglist">
+  <div v-if="!signedUp">
+    <div v-if="signingUp">
+      <div>Just a tick while we sign you up...</div>
+      <br/>
+      <pulse-loader color="rgb(255,20,147" size="10px"></pulse-loader>
+    </div>
+    <form v-else @submit.prevent="processForm" action="/.netlify/functions/newsLetterSignup" name="mailinglist">
       <label><slot></slot></label>
       <input
         type="email"
@@ -13,12 +17,16 @@
     </form>
   </div>
   <div v-else>
-    Thanks for subscribing!
+    <div>Thanks for subscribing to our newsletter!</div>
   </div>
 </template>
 
 <script lang="coffee">
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 export default {
+  components: {
+    PulseLoader
+  }
   mounted: ()->
     console.log { eBookFileName: @.eBookFileName }
   data: ()->
@@ -26,16 +34,17 @@ export default {
       emaildata:
         email: ""
         eBookFileName: @.eBookFileName
-      sent: false
+      signingUp: false
     }
-  props: [ 'axios', 'eBookFileName' ]
+  props: [ 'axios', 'eBookFileName', 'store' ]
   methods:
     processForm: ()->
+      @.signingUp = true
       try
         ajaxCaller = @.axios or @.$axios
         sendgrid = await ajaxCaller.post("#{process.env.API_URL}/.netlify/functions/newsLetterSignup", this.emaildata)
-        console.log("Processed!")
-        this.sent = true
+        store = @.store or @.$store
+        store.dispatch('setSignedUp')
       catch e 
         console.log(e);
   computed:
@@ -44,9 +53,9 @@ export default {
         "c-25": this.signupBoolean,
         "c-4": !this.signupBoolean
       }
-    # TODO add store field to check cookie for someone who's signed up already.
-    # signupBoolean: ()->
-    #   this.$store.state.siteInfo.emailsignup;
+    signedUp: ()->
+      store = @.store or @.$store
+      store.state.signedUp
 }
 </script>
 

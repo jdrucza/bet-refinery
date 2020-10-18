@@ -42,7 +42,8 @@ createStore = ()=>
         pagination: false,
         description: '',
         seoTitle: '',
-        country: ''
+        country: '',
+        signedUp: false
       }
     
     actions:
@@ -146,12 +147,19 @@ createStore = ()=>
             country = response.data
             Cookies.set('country', country, { expires: 7 })
           catch e
-            console.log("Can't get country, defaulting to US", e)
             country = 'US'
-        else 
-          console.log("got COUNTRY from cookie:", country)
-        console.log "SETTING COUNTRY to :", country
         commit('SET_COUNTRY', country)
+
+      getSignedUp: ({state, commit})->
+        signedUp = false
+        signedUpCookie = Cookies.get('signedUp')
+        if(signedUpCookie? and not (signedUpCookie == 'undefined'))
+          signedUp = true
+        commit('SET_SIGNED_UP', signedUp)
+
+      setSignedUp: ({state, commit})->
+        Cookies.set('signedUp', 'true', { expires: 1000 })
+        commit('SET_SIGNED_UP', true)
 
     getters:
       promotionsForCountry: (state, getters)->
@@ -214,6 +222,9 @@ createStore = ()=>
         state.results = data
       SET_COUNTRY: (state, country)->
         state.country = country
+      SET_SIGNED_UP: (state, signedUp)->
+        console.log "Setting store.signedUp to ", signedUp
+        state.signedUp = signedUp
       paginateOn: (state, data)->
         state.pagination = data
       paginateOff: (state, data)->

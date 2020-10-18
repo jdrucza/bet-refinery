@@ -82,10 +82,13 @@ export default {
 
     showNewsLetterSignups: ()->
       for signupEl in document.getElementsByName('brsignup')
-        # TODO having to set axios feels a little hacky, try setting parent relationship 
-        instance = new NewsLetterSignupComponent({ propsData: { axios: @$axios } })
-        instance.$slots.default = [ signupEl.innerHTML ]
-        instance.$mount(signupEl)
+        if signupEl? # for some reason the above was generating an undefined element, not sure how that's even possible...
+          # TODO having to set axios feels a little hacky, try setting parent relationship 
+          eBookFileName = signupEl.getAttribute('ebook-file-name')
+          console.log { eBookFileName }
+          instance = new NewsLetterSignupComponent({ propsData: { eBookFileName: eBookFileName, axios: @$axios, store: @$store } })
+          instance.$slots.default = [ signupEl.innerHTML ]
+          instance.$mount(signupEl)
 
   updated: ()->
     if process.browser

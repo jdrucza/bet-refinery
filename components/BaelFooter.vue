@@ -57,23 +57,9 @@
         </div>
       </div>
       <div v-if="signupBoolean" class="c-25 xs-text-left xs-p2 xs-border">
-        <div v-if="!sent" class="item">
+        <div class="item">
           <div class="footer__heading xs-mb2">Newsletter Signup</div>
-          <!-- <div>
-                    Our newsletter launches in August 2020.
-          </div>-->
-          <form @submit.prevent="processForm" action="/.netlify/functions/newsLetterSignup" name="mailinglist">
-            <input
-              type="email"
-              v-model="emaildata.email"
-              class="text-input text-input--small xs-mb1 xs-mr2"
-              placeholder="you@email.com"
-            />
-            <button type="submit" class="subscribe-button button--small">Submit</button>
-          </form>
-        </div>
-        <div class="item" v-else>
-          <div class="xs-mb2">{{emaildata.email}} has been added to our newsletter.</div>
+          <NewsLetterSignup></NewsLetterSignup>
         </div>
       </div>
       <div class="xs-text-left xs-p2 xs-border" :class="signupAboutSize">
@@ -104,7 +90,11 @@
 </template>
 
 <script lang="coffee">
+import NewsLetterSignup from "~/components/NewsLetterSignup"
 export default {
+  components: {
+    NewsLetterSignup
+  }
   props: ["pagination"]
   watchQuery: ['page']
   data: ()->
@@ -113,15 +103,6 @@ export default {
         email: ""
       sent: false
     }
-  methods:
-    processForm: ()->
-      try
-        console.log @.emaildata
-        sendgrid = await this.$axios.post("#{process.env.API_URL}/.netlify/functions/newsLetterSignup", this.emaildata)
-        console.log("Processed!")
-        this.sent = true
-      catch e 
-        console.log(e);
   computed:
     nextCheck: ()->
       this.nextpage > this.queryParam
@@ -147,6 +128,8 @@ export default {
       this.$store.state.siteInfo.sitedescription;
     signupBoolean: ()->
       this.$store.state.siteInfo.emailsignup;
+    signedUp: ()->
+      @.$store.state.signedUp
 }
 </script>
 

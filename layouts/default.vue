@@ -6,14 +6,13 @@
     <SlideOut/>
     <BaelFooter :pagination="paginate" />
     <modal name='e-book-prompt' :adaptive="true">
+      <br/>
       <NewsLetterSignup e-book-file-name="Top Eight Sports Betting Mistakes - Bet Refinery.pdf" class='e-book-exit-prompt'>
         <h2>Wait! Wouldn't you like to win more?</h2>
         <br/>
         <br/>
-        <br/>
         <p>Sign up to our newsletter to receive a free copy of our ebook</p>
         <p><b>'Top Eight Sports Betting Mistakes'.</b></p>
-        <br/>
         <br/>
         <br/>
       </NewsLetterSignup>
@@ -39,7 +38,7 @@ export default {
         height = document.getElementById("navbar").clientHeight
         this.$store.commit("SET_NAVHEIGHT", height - 1)
     showEBookPrompt: ()->
-      this.$modal.show('e-book-prompt')
+      this.$modal.show('e-book-prompt') unless @.$store.state.signedUp
     initExitIntent: ()->
       @.cancelExitIntent = exitIntent({
         showAgainAfterSeconds: 180
@@ -49,6 +48,7 @@ export default {
           @.showEBookPrompt()
       })
   beforeCreate: ()->
+    this.$store.dispatch('getSignedUp')
     this.$store.dispatch('getCountry')
   updated: ()->
     if process.browser
@@ -62,8 +62,7 @@ export default {
       this.$nextTick(()=>
         this.navHeight()
         console.log("default mounted")
-        # @.showEBookPrompt()
-        @.initExitIntent()
+        @.initExitIntent() unless @.$store.state.signedUp
       )
   beforeDestroy: ()->
     @.cancelExitIntent()
