@@ -27,19 +27,19 @@ export default {
   components: {
     PulseLoader
   }
-  mounted: ()->
-    console.log { eBookFileName: @.eBookFileName }
   data: ()->
     {
       emaildata:
         email: ""
         eBookFileName: @.eBookFileName
+        countryCode: ""
       signingUp: false
     }
   props: [ 'axios', 'eBookFileName', 'store' ]
   methods:
     processForm: ()->
       @.signingUp = true
+      @.emaildata.countryCode = @.countryCode
       try
         ajaxCaller = @.axios or @.$axios
         sendgrid = await ajaxCaller.post("#{process.env.API_URL}/.netlify/functions/newsLetterSignup", this.emaildata)
@@ -56,6 +56,9 @@ export default {
     signedUp: ()->
       store = @.store or @.$store
       store.state.signedUp
+    countryCode: ()->
+      store = @.store or @.$store
+      store.state.country
 }
 </script>
 

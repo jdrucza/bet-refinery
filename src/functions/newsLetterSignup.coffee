@@ -1,15 +1,16 @@
-# import data from "./ebook"
 sgMail = require("@sendgrid/mail")
 client = require("@sendgrid/client")
 
 eBookData = require('./ebook').data
 
-addSendgridRecipient = (client, email)->
+addSendgridRecipient = (client, email, countryCode)->
+  console.log "adding recipient", { email, countryCode }
   new Promise((fulfill, reject) -> 
     data = {
       contacts: [
         {
           email: email
+          country: countryCode
         }
       ]
     }
@@ -84,19 +85,11 @@ module.exports = {
     body = JSON.parse(event.body)
     email = body.email
     eBookFileName = body.eBookFileName
+    countryCode = body.countryCode
     # welcomeEmail = event.queryStringParameters.welcome_email == "true"
-
-    console.log { body, SENDGRID_API_KEY }
 
     sgMail.setApiKey(SENDGRID_API_KEY)
     client.setApiKey(SENDGRID_API_KEY)
-    # sgMail.send(
-    #   to: email
-    #   from: 'jamesd@betrefinery.com'
-    #   subject: 'Sending with Twilio SendGrid is Fun'
-    #   text: 'and easy to do anywhere, even with Node.js'
-    #   html: '<strong>and easy to do anywhere, even with Node.js</strong>'
-    # )
     console.log({
       client
       email
@@ -105,7 +98,7 @@ module.exports = {
       SENDGRID_WELCOME_TEMPLATE_ID
       eBookFileName
     })
-    addSendgridRecipient(client, email)
+    addSendgridRecipient(client, email, countryCode)
     .then((response, body)->
       sendWelcomeEmail(
         client
@@ -116,11 +109,15 @@ module.exports = {
         eBookFileName
       )
       .then((response)-> 
+        sgMail.send(
+          to: ['jamesd@betrefinery.com', 'jamesm@betrefinery.com', 'jasonw@betrefinery.com']
+          from: 'jamesd@betrefinery.com'
+          subject: 'New Newsletter Subscriber!!'
+          text: "#{email} from #{countryCode}"
+        )
         callback(null, { statusCode: response.statusCode, body: email + " added" }) 
       )
       .catch((err)->callback(err, null))
     )
     .catch((err)-> callback(err, null))
-    # console.log "WORLING!!"
-    # callback(null, { statusCode: 200, body: "" })
 }
