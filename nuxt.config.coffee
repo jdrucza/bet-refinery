@@ -83,7 +83,7 @@ module.exports = {
     '@modules/coffeescript'
     '@nuxtjs/google-analytics'
     '@nuxtjs/gtm'
-    '@modules/nuxt-facebook-pixel-module'
+    'nuxt-facebook-pixel-module'
   ]
   googleAnalytics:
     id: 'UA-173154418-1'
