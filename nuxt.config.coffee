@@ -83,11 +83,15 @@ module.exports = {
     '@modules/coffeescript'
     '@nuxtjs/google-analytics'
     '@nuxtjs/gtm'
+    'nuxt-facebook-pixel-module'
   ]
   googleAnalytics:
     id: 'UA-173154418-1'
   gtm:
     id: 'GTM-KBDFC9T'
+  facebook:
+    pixelId: '364714434869055'
+    autoPageView: true
   markdownit:
     injected: true
     preset: 'default'
