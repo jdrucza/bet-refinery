@@ -2,5 +2,8 @@
   "_id": "s978dfs9d87s6f9ds",
   "name": "Bookmaker Name",
   "baseUrl": "https://bookmaker.com",
+  "pathPatterns": {
+    "eventTypeId": "path/pattern/with/#{place}/#{holders}"
+  },
   "probably": "a bunch of other stuff"
 }

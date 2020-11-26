@@ -23,4 +23,20 @@ information we need about them such as URLs API keys etc.
 
 # Aliases
 
-We only need to specify scope to resolve clashes.
+We only need to specify scope to resolve clashes or for mapping to bookmaker ids.
+
+# Querying logic
+
+To use these structures to display predictions with odds comparison, the following queries and logic would be executed:
+
+In the front end a visual table would be specified with a marketId.
+Then the client would ask the api for predictions and odds for that market.
+
+Api service would:
+Retrieve market from Market collection.
+Retrieve event from Event collection using market.eventId
+Retrieve eventType from EventType collection using event.eventTypeId
+Retrieve the aliases records for market and event from Aliases collection
+For each bookmaker in the Bookmaker collection retrieve odds for the market using the ids from the bookmaker-scoped aliases for the market and event.
+Retrieve predictions record from Predictions collection for market.
+Augement predictions with odds using aliases records for each runner

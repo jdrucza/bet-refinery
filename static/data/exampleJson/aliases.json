@@ -12,7 +12,8 @@
         "eventId": "s98d7fdg65dsg",
         "marketId": "34l65k3j454l5"
       },
-      "names": ["list", "of", "names", "in", "scope"]
+      "names": ["list", "of", "names", "in", "scope"],
+      "id": "scopeSpecificId"
     }
   ]
 }
