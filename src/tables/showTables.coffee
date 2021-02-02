@@ -4,6 +4,7 @@ import aliases from '~/static/data/golf_mapping/aliases.json'
 
 export default {
   showTables: ()->
+    mobileView = window?.innerWidth < 700
     @.tableData = @.tableData or {}
     for tableEl in document.getElementsByName('brtable')
       dataFileName = tableEl.getAttribute('data-file-name')
