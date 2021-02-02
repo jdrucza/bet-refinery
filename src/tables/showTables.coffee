@@ -24,7 +24,7 @@ export default {
         data: tableData
         reactiveData: true
         height: height if height?
-        layout: "fitColumns"
+        layout: if mobileView then "fitDataFill" else "fitColumns"
         autoColumns: true
         autoColumnsDefinitions: (definitions)->
           for definition in definitions
