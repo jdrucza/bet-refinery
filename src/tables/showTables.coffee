@@ -21,6 +21,10 @@ export default {
         tableData = tableDataResponse?.data
         @.tableData[dataApiName] = tableData
       height = tableEl.getAttribute('height')
+      onlyColumns = tableEl.getAttribute('data-only-cols')?.split(',')
+      exceptColumns = tableEl.getAttribute('data-except-cols')?.split(',')
+      frozenColumns = tableEl.getAttribute('data-frozen-cols')?.split(',')
+      leftAlignedColumns = tableEl.getAttribute('data-left-aligned-cols')?.split(',')
       tableConfig =
         data: tableData
         reactiveData: true
@@ -29,7 +33,14 @@ export default {
         autoColumns: true
         autoColumnsDefinitions: (definitions)->
           for definition in definitions
-            definition.visible = false if /.*Id$/.test(definition.title)
+            if onlyColumns?
+              definition.visible = false unless (definition.field in onlyColumns)
+            else if exceptColumns?
+              definition.visible = false if (definition.field in exceptColumns)
+            else
+              definition.visible = false if /.*Id$/.test(definition.title)
+            definition.frozen = true if (frozenColumns? and definition.field in frozenColumns)
+            definition.hozAlign = 'right' unless (leftAlignedColumns? and definition.field in leftAlignedColumns)
           definitions
       tableInstance = new Tabulator(tableEl, tableConfig)
 
