@@ -62,7 +62,7 @@ export default {
       this.$nextTick(()=>
         this.navHeight()
         console.log("default mounted")
-        @.initExitIntent() unless @.$store.state.signedUp
+        # @.initExitIntent() unless @.$store.state.signedUp
       )
   beforeDestroy: ()->
     @.cancelExitIntent()
