@@ -17,7 +17,14 @@ export default {
         console.log { dataApiName }
         apiUrl = "https://api.betrefinery.com/predictions/#{dataApiName}"
         # apiUrl = "http://localhost:1337/predictions/#{dataApiName}"
-        tableDataResponse = await @.$axios.get(apiUrl)
+        apiParams = {}
+        for attribute in tableEl.attributes when attribute.name.startsWith("data-api-param-")
+          name = attribute.name.replace("data-api-param-","")
+          value = attribute.value
+          apiParams[name] = value
+
+        console.log { apiParams }
+        tableDataResponse = await @.$axios.get(apiUrl, {params: apiParams})
         tableData = tableDataResponse?.data
         @.tableData[dataApiName] = tableData
       height = tableEl.getAttribute('height')
