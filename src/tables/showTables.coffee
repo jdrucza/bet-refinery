@@ -2,6 +2,15 @@ import Tabulator from 'tabulator-tables'
 import markets from '~/static/data/golf_mapping/market.json'
 import aliases from '~/static/data/golf_mapping/aliases.json'
 
+capitalizeFirstLetter = (string)->
+  string.charAt(0).toUpperCase() + string.slice(1);
+camelCase = (snakeCase)->
+  parts = snakeCase.split('-')
+  firstPart = parts.shift()
+  parts = (capitalizeFirstLetter(part) for part in parts)
+  parts.unshift(firstPart)
+  parts.join('')
+
 export default {
   showTables: ()->
     mobileView = window?.innerWidth < 700
@@ -19,7 +28,7 @@ export default {
         # apiUrl = "http://localhost:1337/predictions/#{dataApiName}"
         apiParams = {}
         for attribute in tableEl.attributes when attribute.name.startsWith("data-api-param-")
-          name = attribute.name.replace("data-api-param-","")
+          name = camelCase(attribute.name.replace("data-api-param-",""))
           value = attribute.value
           apiParams[name] = value
 
