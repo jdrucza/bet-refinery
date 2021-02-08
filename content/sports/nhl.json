@@ -4,5 +4,6 @@
   "yoast_keyword": "NHL",
   "mainContent": "NHL",
   "summary": "NHL",
-  "description": "NHL betting homepage for Bet Refinery"
+  "description": "NHL betting homepage for Bet Refinery",
+  "hide": true
 }

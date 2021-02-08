@@ -4,5 +4,6 @@
   "yoast_keyword": "AFL",
   "description": "AFL",
   "summary": "Australian Football League",
-  "mainContent": "AFL"
+  "mainContent": "AFL",
+  "hide": true
 }

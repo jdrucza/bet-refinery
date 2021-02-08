@@ -51,7 +51,7 @@ export default {
   components: { VueFuse }
   computed:
     allSports: ()->
-      @.$store.state.allSports
+      sport for sport in @.$store.state.allSports when not sport.hide
     headlinePosts: ()->
       post for post in @.$store.state.blogPosts when post.headline
     allPosts: ()->
