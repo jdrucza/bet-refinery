@@ -24,8 +24,6 @@
   </main>
 </template>
 
-
-
 <script lang="coffee">
 import Vue from 'vue'
 import MdWrapper from "~/components/MdWrapper"
