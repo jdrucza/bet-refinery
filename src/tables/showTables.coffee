@@ -37,12 +37,15 @@ export default {
         tableData = tableDataResponse?.data
         @.tableData[dataApiName] = tableData
       height = tableEl.getAttribute('height')
+      useGrouping = tableEl.getAttribute('data-use-grouping')
       onlyColumns = tableEl.getAttribute('data-only-cols')?.split(',')
       exceptColumns = tableEl.getAttribute('data-except-cols')?.split(',')
       frozenColumns = tableEl.getAttribute('data-frozen-cols')?.split(',')
       leftAlignedColumns = tableEl.getAttribute('data-left-aligned-cols')?.split(',')
       tableConfig =
         data: tableData
+        groupBy: "hiddenGroup" if useGrouping
+        groupHeader: (value)-> value
         reactiveData: true
         height: height if height?
         # layout: if mobileView then "fitDataFill" else "fitColumns"
@@ -57,6 +60,7 @@ export default {
               definition.visible = false if (definition.field in exceptColumns)
             else
               definition.visible = false if /.*Id$/.test(definition.title)
+            definition.visible = false if definition.title == "hiddenGroup"
             definition.frozen = true if (frozenColumns? and definition.field in frozenColumns)
             definition.hozAlign = 'right' unless (leftAlignedColumns? and definition.field in leftAlignedColumns)
           definitions
