@@ -5,5 +5,5 @@
   "description": "Entertainment Betting Markets",
   "summary": "Entertainment",
   "mainContent": "Entertainment",
-  "hide": true
+  "hide": false
 }
