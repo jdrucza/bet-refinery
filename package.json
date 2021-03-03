@@ -48,7 +48,7 @@
     "eslint-loader": "^1.7.1",
     "eslint-plugin-vue": "^4.7.0",
     "glob": "^7.1.2",
-    "pug": "^3.0.0",
+    "pug": "^3.0.1",
     "pug-plain-loader": "^1.0.0"
   },
   "engines": {
