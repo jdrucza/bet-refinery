@@ -4,5 +4,6 @@
   "yoast_keyword": "NCAAB",
   "mainContent": "NCAAB",
   "summary": "NCAAB",
-  "description": "NCAAB betting homepage for Bet Refinery"
+  "description": "NCAAB betting homepage for Bet Refinery",
+  "hide": true
 }
