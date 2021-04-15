@@ -5,5 +5,5 @@
   "description": "Boxing",
   "mainContent": "Boxing",
   "summary": "Boxing",
-  "hide": false
+  "hide": true
 }
