@@ -22,7 +22,7 @@
     "@sendgrid/client": "^7.2.2",
     "@sendgrid/mail": "^7.2.2",
     "bf-solid": "^2.10.6",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "coffee-loader": "^1.0.0",
     "coffeescript": "^2.5.1",
     "exit-intent-mobile-bugfix": "^1.2.8",
