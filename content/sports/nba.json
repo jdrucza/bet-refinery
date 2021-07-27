@@ -4,5 +4,6 @@
   "yoast_keyword": "NBA",
   "mainContent": "NBA",
   "summary": "NBA",
-  "description": "NBA betting homepage for Bet Refinery"
+  "description": "NBA betting homepage for Bet Refinery",
+  "hide": true
 }
