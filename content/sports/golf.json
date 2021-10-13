@@ -4,5 +4,6 @@
   "yoast_keyword": "golf",
   "description": "golf predictions analysis and advice",
   "summary": "This is the summary markup",
-  "mainContent": "This is the main markup"
+  "mainContent": "This is the main markup",
+  "hide": true
 }
