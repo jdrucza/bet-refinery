@@ -5,5 +5,5 @@
   "mainContent": "NBA",
   "summary": "NBA",
   "description": "NBA betting homepage for Bet Refinery",
-  "hide": true
+  "hide": false
 }
