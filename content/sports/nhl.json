@@ -5,5 +5,5 @@
   "mainContent": "NHL",
   "summary": "NHL",
   "description": "NHL betting homepage for Bet Refinery",
-  "hide": true
+  "hide": false
 }
