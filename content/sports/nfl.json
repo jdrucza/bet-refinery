@@ -5,5 +5,5 @@
   "description": "NFL betting content from Bet Refinery",
   "summary": "NFL",
   "mainContent": "NFL",
-  "hide": true
+  "hide": false
 }
