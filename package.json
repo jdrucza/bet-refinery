@@ -31,7 +31,7 @@
     "js-cookie": "^2.2.1",
     "neat-csv": "^5.2.0",
     "netlify-lambda": "^1.4.3",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "nuxt": "^2.5.0",
     "nuxt-facebook-pixel-module": "^1.4.0",
     "sass-loader": "^7.0.3",
